@@ -94,7 +94,8 @@
                         </li>
 
                         <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
+                            <a class="dropdown-item d-flex align-items-center"
+                                href="{{ session('user')->usertype_id == 5 ? route('student.manage-account.show', session('user')->id) : '#' }}">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -103,7 +104,7 @@
                             <hr class="dropdown-divider">
                         </li>
 
-                        <li>
+                        {{--  <li>
                             <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
                                 <i class="bi bi-gear"></i>
                                 <span>Account Settings</span>
@@ -118,7 +119,7 @@
                                 <i class="bi bi-question-circle"></i>
                                 <span>Need Help?</span>
                             </a>
-                        </li>
+                        </li> --}}
                         <li>
                             <hr class="dropdown-divider">
                         </li>
@@ -187,7 +188,7 @@
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-   {{--  <footer id="footer" class="footer" style="height: 10vh">
+    {{--  <footer id="footer" class="footer" style="height: 10vh">
         <div class="copyright">
             &copy; Copyright <strong><span>{{ now()->year }}</span></strong>
         </div>

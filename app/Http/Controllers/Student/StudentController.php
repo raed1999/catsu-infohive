@@ -75,10 +75,10 @@ class StudentController extends Controller
      */
     public function show(string $id)
     {
-        /*   $faculty = Faculty::withTrashed()->find($id);
-        $userType = Str::of($faculty->userType->name)->title();
-        $college = $faculty->college->acroname;
-        return view('admin.manage-dean.show', compact('faculty','userType','college')); */
+        $student = Student::withTrashed()->find($id);
+        $userType = Str::of($student->userType->name)->title();
+        $college = $student->college->acroname;
+        return view('student.manage-account.show', compact('student','userType','college'));
     }
 
     /**

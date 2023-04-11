@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('student_id')->unique()->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('image_path')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(Hash::make('password'));
             $table->foreignId('program_id')->nullable()->constrained('programs');

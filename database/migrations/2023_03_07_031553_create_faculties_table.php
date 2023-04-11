@@ -19,6 +19,7 @@ return new class extends Migration
             $table->string('last_name')->nullable();
             $table->string('position')->nullable();
             $table->string('email')->unique()->nullable();
+            $table->string('image_path')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(Hash::make('password'));
             $table->foreignId('college_id')->constrained('colleges');
