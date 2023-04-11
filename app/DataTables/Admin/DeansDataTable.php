@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Admin;
 
 use App\Constants\Role;
 use App\Models\Faculty;
@@ -65,6 +65,8 @@ class DeansDataTable extends DataTable
             ->minifiedAjax()
             /*   ->dom('Bfrtip') */
             ->orderBy(1)
+            ->responsive(true)
+            ->addTableClass('compact no-wrap')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -97,7 +99,8 @@ class DeansDataTable extends DataTable
                 ->addClass('text-center'),
             Column::make('status')
                 ->searchable(false)
-                ->addClass('text-center'),
+                ->width('auto')
+                ->addClass('text-center w-auto'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Admin;
 
-use App\DataTables\DeansDataTable;
+use App\DataTables\Admin\DeansDataTable;
 use App\Http\Controllers\Controller;
 use App\Models\College;
 use App\Models\Faculty;

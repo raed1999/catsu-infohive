@@ -13,12 +13,9 @@
         </div>
     </div>
 
- {{--    {{ $user = session('user'); }}
-    {{ dd($user) }} --}}
-
     <div class="row">
         <div class="col">
-            <div style="width:100% !important" class="card w-100">
+            <div style="width:100% !important" class="card w-auto">
                 <div class="card-body pt-4">
                     {{ $dataTable->table() }}
                 </div>

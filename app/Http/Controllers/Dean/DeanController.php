@@ -3,7 +3,7 @@
 namespace App\Http\Controllers\Dean;
 
 use App\Http\Controllers\Controller;
-use App\DataTables\ClerksDataTable;
+use App\DataTables\Dean\ClerksDataTable;
 use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;

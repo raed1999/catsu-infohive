@@ -19,9 +19,6 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request): RedirectResponse
     {
-
-        /*   dd($request); */
-
         $validated = $request->validate([
             'username' => 'required',
             'usertype' => 'required|integer',
@@ -43,11 +40,12 @@ class LoginController extends Controller
 
             /* No account found */
             if ($faculty == null) {
-                return back()->withErrors([
-                    'username' => 'Account not found.',
-                ])->onlyInput('username');
+                return back()
+                    ->withErrors([
+                        'username' => 'Account not found.',
+                    ])
+                    ->withInput();
             }
-
 
             if ($faculty != null) {
 
@@ -55,9 +53,8 @@ class LoginController extends Controller
                 if ($faculty->trashed()) {
                     return back()->withErrors([
                         'username' => 'Your account was disabled for some reasons. Contact the administrator if you think its wrong.',
-                    ])->onlyInput('username');
+                    ])->withInput();
                 }
-
 
                 /* For Enabled Accounts */
                 if (Hash::check($password, $faculty->password)) {
@@ -76,14 +73,14 @@ class LoginController extends Controller
                         return redirect()->intended(route('dean.manage-clerk.index'));
                     }
 
-                    /* For Dean */
+                    /* For Clerk */
                     if ($faculty->usertype_id === Role::CLERK) {
                         return redirect()->intended(route('clerk.manage-student.index'));
                     }
                 } else {
                     return back()->withErrors([
                         'password' => 'Incorrect password',
-                    ])->onlyInput('email');
+                    ])->withInput();
                 }
             }
         }
@@ -102,7 +99,7 @@ class LoginController extends Controller
             if ($student == null) {
                 return back()->withErrors([
                     'username' => 'Account not found.',
-                ])->onlyInput('username');
+                ])->withInput();
             }
 
             if (Hash::check($password, $student->password)) {
@@ -116,15 +113,14 @@ class LoginController extends Controller
                 }
 
                 return redirect()->intended(route('student.verification'));
-
             } else {
                 return back()->withErrors([
                     'password' => 'Incorrect password',
-                ])->onlyInput('email');
+                ])->withInput();
             }
         }
         return back()->withErrors([
             'username' => 'The provided credentials do not match our records.',
-        ])->onlyInput('username');
+        ])->withInput();
     }
 }

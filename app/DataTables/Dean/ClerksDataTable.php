@@ -1,9 +1,9 @@
 <?php
 
-namespace App\DataTables;
+namespace App\DataTables\Dean;
 
 use App\Constants\Role;
-use App\Models\Student;
+use App\Models\Faculty;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class StudentsDataTable extends DataTable
+class ClerksDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -30,22 +30,14 @@ class StudentsDataTable extends DataTable
                     $status = "<span class='badge bg-danger rounded-pill'>Disabled</span>";
                 }
 
-                if ($query->email_verified_at) {
-                    $verifiy = "<span class='badge bg-success rounded-pill'>Verified</span>";
-                }
-
-                if (!$query->email_verified_at) {
-                    $verifiy = "<span class='badge bg-warning rounded-pill'>Unverified</span>";
-                }
-
-                return  $status . ' ' . $verifiy;
+                return  $status;
             })
             ->addColumn('action', function ($query) {
 
-                $viewButton = "<a href='" . route('clerk.manage-student.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
-                /*   $editButton = "<a href='" . route('clerk.manage-student.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>"; */
+                $viewButton = "<a href='" . route('dean.manage-clerk.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
+                $editButton = "<a href='" . route('dean.manage-clerk.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>";
 
-                return  $viewButton /* . $editButton */;
+                return  $viewButton . $editButton;
             })
             ->orderColumn('status', '-deleted_at $1')
             ->addIndexColumn()
@@ -56,14 +48,14 @@ class StudentsDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Student $model): QueryBuilder
+    public function query(Faculty $model): QueryBuilder
     {
         return $model
-            ->where('usertype_id', Role::STUDENT)
-            ->whereRelation('program', 'college_id', session('user')->college_id)
-            ->with('college', 'program')
+            ->where('usertype_id', Role::CLERK)
+            ->where('college_id', session('user')->college_id)
+            ->with(['college'])
             ->withTrashed()
-            ->select('students.*');
+            ->select('faculties.*');
     }
 
 
@@ -73,11 +65,13 @@ class StudentsDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('students-table')
+            ->setTableId('clerks-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             /*   ->dom('Bfrtip') */
             ->orderBy(1)
+            ->responsive(true)
+            ->addTableClass('compact no-wrap')
             ->selectStyleSingle()
             ->buttons([
                 Button::make('excel'),
@@ -99,11 +93,10 @@ class StudentsDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->addClass('text-center'),
-            Column::make('student_id'),
             Column::make('first_name'),
             Column::make('middle_name'),
             Column::make('last_name'),
-            Column::make(['title' => 'Program', 'data' => 'program.acroname'])
+            Column::make(['title' => 'College', 'data' => 'college.acroname'])
                 ->addClass('text-center'),
             Column::make('created_at')
                 ->addClass('text-center'),
@@ -125,6 +118,6 @@ class StudentsDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'InfoHive_Students_Information' . date('YmdHis');
+        return 'InfoHive_Clerks_Information' . date('YmdHis');
     }
 }

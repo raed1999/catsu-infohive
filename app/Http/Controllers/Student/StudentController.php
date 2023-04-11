@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Student;
 
-use App\DataTables\DeansDataTable;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
@@ -16,9 +15,9 @@ class StudentController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(DeansDataTable $dataTable)
+    public function index(/* DeansDataTable $dataTable */)
     {
-        return $dataTable->render('student.manage-account.index');
+        return view('student.manage-account.index');
     }
 
     /**

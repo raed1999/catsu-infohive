@@ -52,7 +52,7 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/catsu.png" alt="">
+                <img src="{{ asset('assets/img/catsu.png') }}" alt="">
                 <span class="d-none d-lg-block">CatSu InfoHive</span>
             </a>
             <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -79,7 +79,7 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="{{ asset('assets/img/profile-img.jpg  ') }}" alt="Profile" class="rounded-circle">
+                        <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
                         <span
                             class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . session('user')->first_name }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -187,18 +187,14 @@
     </main><!-- End #main -->
 
     <!-- ======= Footer ======= -->
-    <footer id="footer" class="footer" style="height: 10vh">
+   {{--  <footer id="footer" class="footer" style="height: 10vh">
         <div class="copyright">
             &copy; Copyright <strong><span>{{ now()->year }}</span></strong>
         </div>
         <div class="credits">
-            <!-- All the links in the footer should remain intact. -->
-            <!-- You can delete the links only if you purchased the pro version. -->
-            <!-- Licensing information: https://bootstrapmade.com/license/ -->
-            <!-- Purchase the pro version with working PHP/AJAX contact form: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/ -->
             BMT | GGA | JGMB | REWP
         </div>
-    </footer><!-- End Footer -->
+    </footer> --}}
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>

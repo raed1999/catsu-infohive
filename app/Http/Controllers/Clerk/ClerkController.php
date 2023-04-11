@@ -3,12 +3,9 @@
 namespace App\Http\Controllers\Clerk;
 
 use App\Http\Controllers\Controller;
-use App\DataTables\ClerksDataTable;
-use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
-use App\Constants\Role;
-use App\DataTables\StudentsDataTable;
+use App\DataTables\Clerk\StudentsDataTable;
 use App\Models\Student;
 
 class ClerkController extends Controller
