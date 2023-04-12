@@ -50,7 +50,7 @@ Route::name('auth.')->group(function () {
 /**
  *  Admin Routes
  */
-Route::prefix('admin')
+Route::prefix('a')
     ->name('admin.')
     ->middleware('is.logged.in')
     ->group(function () {
@@ -61,7 +61,7 @@ Route::prefix('admin')
 /**
  * Dean Routes
  */
-Route::prefix('dean')
+Route::prefix('d')
     ->name('dean.')
     ->middleware('is.logged.in')
     ->group(function () {
@@ -72,7 +72,7 @@ Route::prefix('dean')
 /**
  * Clerk Routes ! DAI PA
  */
-Route::prefix('clerk')
+Route::prefix('c')
     ->name('clerk.')
     ->middleware('is.logged.in')
     ->group(function () {
@@ -85,12 +85,17 @@ Route::prefix('clerk')
 /**
  * Student Routes
  */
-Route::prefix('student')
+Route::prefix('s')
     ->name('student.')
     /* ->middleware('is.logged.in') */
     ->group(function () {
-        Route::resource('/manage-account', StudentController::class)->withTrashed(['show']);
-        Route::delete('/manage-account/{manage_student}/restore', [StudentController::class, 'restore'])->withTrashed(['show'])->name('manage-account.restore');
 
-        Route::view('/verification','student.unverified')->name('verification');
+        /* Manage Account */
+        Route::resource('/manage-account', StudentController::class)->withTrashed(['show']);
+        Route::delete('/manage-account/{manage_student}/restore', [StudentController::class, 'restore'])->name('manage-account.restore');
+        Route::post('/manage-account/{manage_student}/avatar', [StudentController::class, 'avatar'])->name('manage-account.avatar');
+        Route::view('/verification', 'student.unverified')->name('verification');
+
+        /* Dashboard */
+        Route::view('d','student.dashboard.index')->name('dashboard');
     });

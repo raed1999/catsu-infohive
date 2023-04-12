@@ -78,7 +78,7 @@ class StudentController extends Controller
         $student = Student::withTrashed()->find($id);
         $userType = Str::of($student->userType->name)->title();
         $college = $student->college->acroname;
-        return view('student.manage-account.show', compact('student','userType','college'));
+        return view('student.manage-account.show', compact('student', 'userType', 'college'));
     }
 
     /**
@@ -138,5 +138,29 @@ class StudentController extends Controller
         $faculty->restore();
 
         return redirect()->route('admin.manage-dean.index'); */
+    }
+
+    /**
+     * Change Profile Picture.
+     */
+    public function avatar(Request $request, string $id)
+    {
+        $request->validate([
+            'image' => 'required|image|mimes:jpeg,png,jpg|max:2048',
+        ]);
+
+        $imageName = 'student-' . $id . '.' . $request->image->extension();
+        $imagePath = $request->image->move(public_path('image/profile'), $imageName);
+
+        $student = Student::find($id);
+        $student->image_path = $imageName;
+        $student->save();
+
+        $request->session()->put('user', $student);
+
+        $userType = Str::of($student->userType->name)->title();
+        $college = $student->college->acroname;
+
+        return view('student.manage-account.show', compact('student', 'userType', 'college'));
     }
 }

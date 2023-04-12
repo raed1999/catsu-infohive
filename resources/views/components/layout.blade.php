@@ -35,6 +35,7 @@
 
     <!-- Template Main CSS File -->
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+    @livewireStyles()
 
     <!-- =======================================================
   * Template Name: NiceAdmin - v2.4.1
@@ -79,7 +80,11 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="{{ asset('assets/img/profile-img.jpg') }}" alt="Profile" class="rounded-circle">
+                        <img src="@if (session('user')->image_path != null) @if (session('user'))
+                        {{ asset(session('user')->image_path) }} @endif
+                        @else
+                        {{ asset('assets/img/profile-img.jpg') }} @endif"
+                            alt="Profile" class="rounded-circle">
                         <span
                             class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . session('user')->first_name }}</span>
                     </a><!-- End Profile Iamge Icon -->
@@ -224,6 +229,7 @@
 
 
 
+
     @stack('scripts')
     @include('sweetalert::alert')
     <script>
@@ -231,6 +237,8 @@
             $('[data-bs-toggle="tooltip"]').tooltip();
         })
     </script>
+
+    @livewireScripts()
 
 </body>
 
