@@ -30,21 +30,18 @@
     <link
         href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.css"
         rel="stylesheet" />
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
+    @vite(['resources/css/app.css'])
+    @livewireStyles()
 
 
     <!-- Template Main CSS File -->
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-    @livewireStyles()
 
-    <!-- =======================================================
-  * Template Name: NiceAdmin - v2.4.1
-  * Template URL: https://bootstrapmade.com/nice-admin-bootstrap-admin-html-template/
-  * Author: BootstrapMade.com
-  * License: https://bootstrapmade.com/license/
-  ======================================================== -->
+
+
+
 </head>
-
 
 <body>
 
@@ -82,8 +79,8 @@
                         data-bs-toggle="dropdown">
                         <img src="@if (session('user')->image_path != null) @if (session('user'))
                         {{ asset(session('user')->image_path) }} @endif
-                        @else
-                        {{ asset('assets/img/profile-img.jpg') }} @endif"
+@else
+{{ asset('assets/img/profile-img.jpg') }} @endif"
                             alt="Profile" class="rounded-circle">
                         <span
                             class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . session('user')->first_name }}</span>
@@ -177,17 +174,6 @@
 
     <main id="main" class="main" style="height: auto">
 
-        {{--   <div class="pagetitle">
-      <h1>Blank Page</h1>
-      <nav>
-        <ol class="breadcrumb">
-          <li class="breadcrumb-item"><a href="index.html">Home</a></li>
-          <li class="breadcrumb-item">Pages</li>
-          <li class="breadcrumb-item active">Blank</li>
-        </ol>
-      </nav>
-    </div> --}}
-
         {{ $slot }}
 
     </main><!-- End #main -->
@@ -206,39 +192,33 @@
             class="bi bi-arrow-up-short"></i></a>
 
     <!-- Vendor JS Files -->
-    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/chart.js/chart.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/echarts/echarts.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/quill/quill.min.js') }}"></script>
-    <script src="{{ asset('assets/vendor/simple-datatables/simple-datatables.js') }}"></script>
-    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-    {{--  <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
+
+
+    {{--    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script> --}}
+        <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+        <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    {{--    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+
     {{--  <script src="https://cdn.datatables.net/v/bs5/dt-1.13.3/datatables.min.js"></script> --}}
     <script
         src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.js">
     </script>
 
-    <script src="sweetalert2.all.min.js"></script>
-
+    @vite(['resources/js/app.js']);
+    @livewireScripts()
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-
-
-
-
     @stack('scripts')
-    @include('sweetalert::alert')
+
     <script>
         $('#deans-table').on('draw.dt', function() {
             $('[data-bs-toggle="tooltip"]').tooltip();
         })
     </script>
 
-    @livewireScripts()
 
 </body>
 

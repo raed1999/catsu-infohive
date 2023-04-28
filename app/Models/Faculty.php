@@ -14,6 +14,11 @@ class Faculty extends Model
 
     protected $fillable = [];
 
+    public function research()
+    {
+        return $this->hasMany(Faculty::class, 'advisers_id');
+    }
+
     public function college(): BelongsTo{
         return $this->belongsTo(College::class,'college_id','id');
     }
@@ -21,6 +26,8 @@ class Faculty extends Model
     public function userType(): BelongsTo {
         return $this->belongsTo(UserType::class,'usertype_id','id');
     }
+
+
 
     protected $casts = [
         'created_at' => 'datetime:M d o',

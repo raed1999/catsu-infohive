@@ -31,6 +31,11 @@ class Student extends Model
         return $this->belongsToThrough(College::class, Program::class);
     }
 
+    /* Concatenate Full Name */
+    public function getFullName(){
+        return "{$this->first_name} {$this->last_name}";
+    }
+
     protected $casts = [
         'created_at' => 'datetime:M d o',
         'updated_at' => 'datetime:M d o',

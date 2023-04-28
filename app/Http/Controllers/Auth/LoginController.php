@@ -109,7 +109,7 @@ class LoginController extends Controller
                 $request->session()->put('user', $student);
 
                 if ($student->email_verified_at) {
-                    return redirect()->intended(route('student.dashboard'));
+                    return redirect()->intended(route('student.dashboard.index'));
                 }
 
                 return redirect()->intended(route('student.verification'));

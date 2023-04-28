@@ -19,8 +19,6 @@ class IsLoggedIn
             return redirect()->route('auth.login');
         }
 
-
-
         return $next($request);
     }
 }

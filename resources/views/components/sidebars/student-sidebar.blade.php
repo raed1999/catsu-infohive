@@ -7,14 +7,14 @@
             <li class="nav-heading">University</li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('student.dashboard') }}">
+                <a class="nav-link collapsed" href="{{ route('student.dashboard.index') }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ /* route('student.dashboard')  */}}">
+                <a class="nav-link collapsed" href="{{  route('student.research.index')  }}">
                     <i class="bi bi-book"></i>
                     <span>Capstone | Thesis</span>
                 </a>

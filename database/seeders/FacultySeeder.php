@@ -65,6 +65,73 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        /* Other Teaching Faculties */
+
+        DB::table('faculties')->insert([
+            'first_name' => 'Belen',
+            'middle_name' => 'M',
+            'last_name' => 'Tapado',
+            'email' => 'cict@tapado.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('faculties')->insert([
+            'first_name' => 'Gemma',
+            'middle_name' => 'G',
+            'last_name' => 'Acedo',
+            'email' => 'cict@acedo.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('faculties')->insert([
+            'first_name' => 'Joy',
+            'middle_name' => 'V',
+            'last_name' => 'Santelices',
+            'email' => 'cict@santelices.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('faculties')->insert([
+            'first_name' => 'Janette',
+            'middle_name' => 'V',
+            'last_name' => 'Lucre',
+            'email' => 'cict@lucre.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        DB::table('faculties')->insert([
+            'first_name' => 'Ma. Antonia',
+            'middle_name' => 'E',
+            'last_name' => 'Rojas',
+            'email' => 'cict@rojas.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
         /* CEA Default Accounts */
 
         $cea = College::where('acroname', 'CEA')->value('id');

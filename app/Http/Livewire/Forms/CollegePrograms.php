@@ -5,7 +5,6 @@ namespace App\Http\Livewire\Forms;
 use App\Models\College;
 use App\Models\Program;
 use Livewire\Component;
-use NunoMaduro\Collision\Adapters\Phpunit\State;
 
 class CollegePrograms extends Component
 {
@@ -18,7 +17,7 @@ class CollegePrograms extends Component
 
     public function mount()
     {
-        $this->colleges = College::all();
+        $this->colleges = College::where('acroname','<>','ITS')->get();
 
         $this->selectedCollege = old('college');
         $this->selectedProgram = old('program');

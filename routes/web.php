@@ -5,6 +5,7 @@ use App\Http\Controllers\Dean\DeanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
+use App\Http\Controllers\Student\ResearchController;
 use App\Http\Controllers\Student\StudentController;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
@@ -70,16 +71,16 @@ Route::prefix('d')
     });
 
 /**
- * Clerk Routes ! DAI PA
+ * Clerk Routes
  */
 Route::prefix('c')
     ->name('clerk.')
     ->middleware('is.logged.in')
     ->group(function () {
-        Route::resource('/manage-student', ClerkController::class)->withTrashed(['show']);
-        Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed(['show'])->name('manage-student.restore');
-        Route::put('/manage-student/{manage_student}/verify', [ClerkController::class, 'verify'])->withTrashed(['show'])->name('manage-student.verify');
-        Route::put('/manage-student/{manage_student}/unverifiy', [ClerkController::class, 'unverify'])->withTrashed(['show'])->name('manage-student.unverify');
+        Route::resource('/manage-student', ClerkController::class)->withTrashed();
+        Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed()->name('manage-student.restore');
+        Route::put('/manage-student/{manage_student}/verify', [ClerkController::class, 'verify'])->withTrashed()->name('manage-student.verify');
+        Route::put('/manage-student/{manage_student}/unverifiy', [ClerkController::class, 'unverify'])->withTrashed()->name('manage-student.unverify');
     });
 
 /**
@@ -87,15 +88,20 @@ Route::prefix('c')
  */
 Route::prefix('s')
     ->name('student.')
-    /* ->middleware('is.logged.in') */
+    ->middleware('is.logged.in')
     ->group(function () {
 
         /* Manage Account */
-        Route::resource('/manage-account', StudentController::class)->withTrashed(['show']);
+        Route::resource('/manage-account', StudentController::class)->except(['store'])->withTrashed();
+        Route::resource('/manage-account', StudentController::class)->only(['store'])->withoutMiddleware('is.logged.in')->withTrashed();
         Route::delete('/manage-account/{manage_student}/restore', [StudentController::class, 'restore'])->name('manage-account.restore');
         Route::post('/manage-account/{manage_student}/avatar', [StudentController::class, 'avatar'])->name('manage-account.avatar');
         Route::view('/verification', 'student.unverified')->name('verification');
 
         /* Dashboard */
-        Route::view('d','student.dashboard.index')->name('dashboard');
+        Route::view('/d','student.dashboard.index')->name('dashboard.index');
+
+        /* Research */
+        Route::resource('/research', ResearchController::class);
+        Route::get('/research/load-students',[ResearchController::class, 'loadStudents'])->name('research.load-students');
     });

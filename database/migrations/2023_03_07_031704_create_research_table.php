@@ -16,10 +16,10 @@ return new class extends Migration
             $table->string('title');
             $table->text('abstract');
             $table->year('year');
-            $table->string('keyword');
-            $table->foreignId('advisers_id')->constrained('faculties');
-            $table->foreignId('faculty_in_charge_id')->constrained('faculties');
-            $table->foreignId('confirmed_by_id')->constrained('faculties');
+            $table->json('keywords')->nullable();
+            $table->foreignId('advisers_id')->nullable()->constrained('faculties');
+            $table->foreignId('faculty_in_charge_id')->nullable()->constrained('faculties');
+            $table->foreignId('confirmed_by_id')->nullable()->constrained('faculties');
             $table->softDeletes();
 
             $table->timestamps();
