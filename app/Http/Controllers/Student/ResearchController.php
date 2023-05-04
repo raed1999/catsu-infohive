@@ -53,7 +53,7 @@ class ResearchController extends Controller
      */
     public function show(string $id)
     {
-        //
+
     }
 
     /**
@@ -61,7 +61,7 @@ class ResearchController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('student.research.edit',['research_id' => $id]);
     }
 
     /**

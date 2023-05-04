@@ -30,9 +30,11 @@
     <link
         href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.css"
         rel="stylesheet" />
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
 
     @vite(['resources/css/app.css'])
+
+    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+
     @livewireStyles()
 
 
@@ -195,8 +197,8 @@
 
 
     {{--    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script> --}}
-        <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
-        <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
+    <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
     {{--    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 
@@ -205,8 +207,8 @@
         src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.js">
     </script>
 
-    @vite(['resources/js/app.js']);
     @livewireScripts()
+    @vite(['resources/js/app.js']);
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>

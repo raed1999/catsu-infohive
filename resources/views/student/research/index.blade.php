@@ -8,6 +8,8 @@
         <div class="col">
             <h3> Manage Capstone / Thesis</h3>
         </div>
+        <div class="col-auto">
+        </div>
     </div>
     {{--     {{ dd(session('user')) }} --}}
     @if (session('user')->research_id == null)
@@ -28,8 +30,19 @@
         <div class="card">
             {{--  <div class="card-header">Header</div> --}}
             <div class="card-body p-5">
+                <div class="row align-items-center">
+                    <div class="col mb-3">
+                        <h4 class="card-title py-2 mb-0 fs-2">{{ $research->title . ', ' . $research->year }}</h4>
+                    </div>
+                    <div class="col-auto mb-3">
+                        <a href="{{ route('student.research.edit', $research->id) }}"
+                            class="btn btn-sm btn-primary">Edit
+                            Capstone / Thesis</a>
+                    </div>
+                </div>
+
                 <div class="mb-3">
-                    <h4 class="card-title py-2 mb-0 fs-2">{{ $research->title . ', ' . $research->year }}</h4>
+                    <h4 class="card-title py-2 mb-0">Authors</h4>
                     <p class="">
                         @foreach ($authors as $author)
                             <span class="me-3 fw-bold"> <i class="bx bxs-user"></i>
@@ -60,7 +73,6 @@
                     <p>{{ $research->facultyInCharge->first_name . ' ' . $research->facultyInCharge->middle_name . ' ' . $research->facultyInCharge->last_name }}
                     </p>
                 </div>
-
             </div>
             {{--  <div class="card-footer"> </div> --}}
         </div>
