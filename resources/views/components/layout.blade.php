@@ -79,19 +79,19 @@
 
                     <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
                         data-bs-toggle="dropdown">
-                        <img src="@if (session('user')->image_path != null) @if (session('user'))
-                        {{ asset(session('user')->image_path) }} @endif
+                        <img src="@if (Auth::user()->image_path != null) @if (Auth::user())
+                        {{ asset(Auth::user()->image_path) }} @endif
 @else
 {{ asset('assets/img/profile-img.jpg') }} @endif"
                             alt="Profile" class="rounded-circle">
                         <span
-                            class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . session('user')->first_name }}</span>
+                            class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . Auth::user()->first_name }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ session('user')->first_name . ' ' . session('user')->last_name }}</h6>
-                            <span>{{ session('user')->college->acroname }}</span>
+                            <h6>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h6>
+                            <span>{{ Auth::user()->college->acroname }}</span>
                         </li>
                         <li>
                             <hr class="dropdown-divider">
@@ -99,7 +99,7 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center"
-                                href="{{ session('user')->usertype_id == 5 ? route('student.manage-account.show', session('user')->id) : '#' }}">
+                                href="{{ Auth::user()->usertype_id == 5 ? route('student.manage-account.show', Auth::user()->id) : '#' }}">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>
@@ -149,17 +149,17 @@
     {{-- Sidebar --}}
 
     {{-- For Admin --}}
-    @if (session('user')->usertype_id == 1)
+    @if (Auth::user()->usertype_id == 1)
         <x-sidebars.admin-sidebar />
     @endif
 
     {{-- For Dean --}}
-    @if (session('user')->usertype_id == 2)
+    @if (Auth::user()->usertype_id == 2)
         <x-sidebars.dean-sidebar />
     @endif
 
     {{-- For clerk  --}}
-    @if (session('user')->usertype_id == 3)
+    @if (Auth::user()->usertype_id == 3)
         <x-sidebars.clerk-sidebar />
     @endif
 
@@ -167,7 +167,7 @@
     {{-- D A I   P A --}}
 
     {{-- For Student  --}}
-    @if (session('user')->usertype_id == 5)
+    @if (Auth::user()->usertype_id == 5)
         <x-sidebars.student-sidebar />
     @endif
 

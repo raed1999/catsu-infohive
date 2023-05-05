@@ -1,5 +1,6 @@
 <x-layout>
 
+
     <x-slot:title>
         CatSU InfoHive | Manage Deans
     </x-slot:title>

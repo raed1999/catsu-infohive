@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Auth;
 use App\Constants\Role;
 use App\Http\Controllers\Controller;
 use App\Models\Faculty;
+use App\Models\user;
 use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
@@ -19,69 +20,76 @@ class LoginController extends Controller
      */
     public function authenticate(Request $request): RedirectResponse
     {
-        $validated = $request->validate([
+
+
+
+        /*  $validated = $request->validate([
             'username' => 'required',
             'usertype' => 'required|integer',
             'password' => 'required',
-        ]);
+        ]); */
 
-        $username = $validated['username'];
-        $usertype = $validated['usertype'];
-        $password = $validated['password'];
+        $username = $request['username'];
+        $usertype = $request['usertype'];
+        $password = $request['password'];
+
+        $validated = $request->validate([
+            'username' => ['required'],
+            'password' => ['required'],
+        ]);
 
         /**
          *  Non-student authentication
          */
+
         if ($usertype != Role::STUDENT) {
 
-            $faculty = Faculty::withTrashed()
-                ->where('email', $username)
-                ->first();
+
+
 
             /* No account found */
-            if ($faculty == null) {
+            /*   if ($user == null) {
                 return back()
                     ->withErrors([
                         'username' => 'Account not found.',
                     ])
                     ->withInput();
-            }
+            } */
 
-            if ($faculty != null) {
+            /*  if ($user != null) { */
 
-                /* For Disabled Accounts */
-                if ($faculty->trashed()) {
+            /* For Disabled Accounts */
+            /*  if ($user->trashed()) {
                     return back()->withErrors([
                         'username' => 'Your account was disabled for some reasons. Contact the administrator if you think its wrong.',
                     ])->withInput();
+                } */
+
+            /* For Enabled Accounts */
+
+            if (Auth::guard('faculty')->attempt(['email' => $validated['username'], 'password' => $validated['password']])) {
+                $request->session()->regenerate();
+
+                Auth::shouldUse('faculty');
+
+                /* For Admin */
+                if (Auth::user()->usertype_id === Role::ADMIN) {
+                    return redirect()->intended(route('admin.manage-dean.index'));
                 }
 
-                /* For Enabled Accounts */
-                if (Hash::check($password, $faculty->password)) {
-                    $request->session()->regenerate();
-
-                    // Store user data in the session
-                    $request->session()->put('user', $faculty);
-
-                    /* For Admin */
-                    if ($faculty->usertype_id === Role::ADMIN) {
-                        return redirect()->intended(route('admin.manage-dean.index'));
-                    }
-
-                    /* For Dean */
-                    if ($faculty->usertype_id === Role::DEAN) {
-                        return redirect()->intended(route('dean.manage-clerk.index'));
-                    }
-
-                    /* For Clerk */
-                    if ($faculty->usertype_id === Role::CLERK) {
-                        return redirect()->intended(route('clerk.manage-student.index'));
-                    }
-                } else {
-                    return back()->withErrors([
-                        'password' => 'Incorrect password',
-                    ])->withInput();
+                /* For Dean */
+                if (Auth::user()->usertype_id === Role::DEAN) {
+                    return redirect()->intended(route('dean.manage-clerk.index'));
                 }
+
+                /* For Clerk */
+                if (Auth::user()->usertype_id === Role::CLERK) {
+                    return redirect()->intended(route('clerk.manage-student.index'));
+                }
+            } else {
+                return back()->withErrors([
+                    'password' => 'Incorrect password',
+                ])->withInput();
             }
         }
 
@@ -90,25 +98,24 @@ class LoginController extends Controller
          */
         if ($usertype == Role::STUDENT) {
 
-            $student = Student::withTrashed()
+            /*  $user = Student::withTrashed()
                 ->where('email', $username)
                 ->orWhere('student_id', $username)
-                ->first();
+                ->first(); */
 
             /* No account found */
-            if ($student == null) {
+            /*    if ($user == null) {
                 return back()->withErrors([
                     'username' => 'Account not found.',
                 ])->withInput();
-            }
+            } */
 
-            if (Hash::check($password, $student->password)) {
+            if (Auth::guard('student')->attempt(['student_id' => $validated['username'], 'password' => $validated['password']])) {
                 $request->session()->regenerate();
 
-                // Store user data in the session
-                $request->session()->put('user', $student);
+                Auth::shouldUse('student');
 
-                if ($student->email_verified_at) {
+                if (Auth::user()->email_verified_at) {
                     return redirect()->intended(route('student.dashboard.index'));
                 }
 
@@ -119,8 +126,5 @@ class LoginController extends Controller
                 ])->withInput();
             }
         }
-        return back()->withErrors([
-            'username' => 'The provided credentials do not match our records.',
-        ])->withInput();
     }
 }

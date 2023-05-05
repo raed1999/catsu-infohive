@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
-class IsLoggedIn
+class UseStudentGuard
 {
     /**
      * Handle an incoming request.
@@ -16,10 +16,8 @@ class IsLoggedIn
      */
     public function handle(Request $request, Closure $next): Response
     {
-        if (!Auth::user()->id) {
 
-            return redirect()->route('auth.login');
-        }
+        Auth::shouldUse('student');
 
         return $next($request);
     }

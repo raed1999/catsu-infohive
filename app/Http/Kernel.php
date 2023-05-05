@@ -22,6 +22,7 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
 
+
     ];
 
     /**
@@ -70,5 +71,7 @@ class Kernel extends HttpKernel
         'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
         'is.logged.in' => \App\Http\Middleware\Auth\IsLoggedIn::class,
         'prevent.if.logged.in' => \App\Http\Middleware\Auth\PreventIfLoggedIn::class,
+        'use.faculty.guard' => \App\Http\Middleware\Auth\UseFacultyGuard::class,
+        'use.student.guard' => \App\Http\Middleware\Auth\UseStudentGuard::class,
     ];
 }

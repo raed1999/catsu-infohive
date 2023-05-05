@@ -75,12 +75,14 @@ return [
         'faculties' => [
             'driver' => 'eloquent',
             'model' => App\Models\Faculty::class,
-            'table' => 'faculties',
+            /* 'table' => 'faculties', */
+           /*  'email' => 'email', */
         ],
         'students' => [
             'driver' => 'eloquent',
             'model' => App\Models\Student::class,
-            'table' => 'faculties',
+          /*   'table' => 'students', */
+          /*   'username' => 'student_id', */
         ],
 
         // 'users' => [

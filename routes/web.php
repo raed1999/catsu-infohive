@@ -41,7 +41,7 @@ Route::name('auth.')->group(function () {
     /**
      * Logout
      */
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout');
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout')->middleware(['use.faculty.guard','use.student.guard']);
 
 
     Route::view('/register', 'auth.register')->name('register');
@@ -53,9 +53,9 @@ Route::name('auth.')->group(function () {
  */
 Route::prefix('a')
     ->name('admin.')
-    ->middleware('is.logged.in')
+    ->middleware(['is.logged.in','use.faculty.guard'])
     ->group(function () {
-        Route::resource('/manage-dean', AdminController::class)->withTrashed(['show']);
+        Route::resource('/manage-dean', AdminController::class)->withTrashed();
         Route::delete('/manage-dean/{manage_dean}/restore', [AdminController::class, 'restore'])->withTrashed(['show'])->name('manage-dean.restore');
     });
 
@@ -64,7 +64,7 @@ Route::prefix('a')
  */
 Route::prefix('d')
     ->name('dean.')
-    ->middleware('is.logged.in')
+    ->middleware(['is.logged.in','use.faculty.guard'])
     ->group(function () {
         Route::resource('/manage-clerk', DeanController::class)->withTrashed(['show']);
         Route::delete('/manage-clerk/{manage_clerk}/restore', [DeanController::class, 'restore'])->withTrashed(['show'])->name('manage-clerk.restore');
@@ -75,7 +75,7 @@ Route::prefix('d')
  */
 Route::prefix('c')
     ->name('clerk.')
-    ->middleware('is.logged.in')
+    ->middleware(['is.logged.in','use.faculty.guard'])
     ->group(function () {
         Route::resource('/manage-student', ClerkController::class)->withTrashed();
         Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed()->name('manage-student.restore');
@@ -88,7 +88,7 @@ Route::prefix('c')
  */
 Route::prefix('s')
     ->name('student.')
-    ->middleware('is.logged.in')
+    ->middleware(['use.student.guard','is.logged.in'])
     ->group(function () {
 
         /* Manage Account */

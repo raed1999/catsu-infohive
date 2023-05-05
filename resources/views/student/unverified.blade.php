@@ -66,13 +66,13 @@
                         data-bs-toggle="dropdown">
                         <img src="{{ asset('assets/img/profile-img.jpg  ') }}" alt="Profile" class="rounded-circle">
                         <span
-                            class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . session('user')->first_name }}</span>
+                            class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . Auth::user()->first_name }}</span>
                     </a><!-- End Profile Iamge Icon -->
 
                     <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
                         <li class="dropdown-header">
-                            <h6>{{ session('user')->first_name . ' ' . session('user')->last_name }}</h6>
-                            <span>{{ session('user')->college->acroname }}</span>
+                            <h6>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h6>
+                            <span>{{ Auth::user()->college->acroname }}</span>
                         </li>
 
                         <li>

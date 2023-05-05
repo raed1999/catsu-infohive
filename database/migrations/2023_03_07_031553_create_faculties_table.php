@@ -27,6 +27,7 @@ return new class extends Migration
             $table->foreignId('added_by_id')->constrained('faculties');
             $table->softDeletes();
 
+            $table->rememberToken();
             $table->timestamps();
         });
     }
