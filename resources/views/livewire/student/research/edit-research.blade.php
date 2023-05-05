@@ -62,7 +62,7 @@
                                 <label for="author" class="form-label">Co-Authors
                                     <small class="text-primary">*Limit to co-authors, You're in already.</small>
                                 </label>
-                                <select class="form-select" wire:model="studentAuthors" id="studentAuthors"
+                                <select class="form-select" wire:model.defer="studentAuthors" id="studentAuthors"
                                     name="studentAuthors" data-allow-clear="true" data-highlight-typed="true"
                                     data-no-cache="true" multiple>
                                     <option disabled hidden value=""></option>

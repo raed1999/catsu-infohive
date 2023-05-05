@@ -18,6 +18,7 @@ class EditResearch extends Component
 
     public $research_id;
     public $currentAuthors; // records the current Author
+    public $tags;
 
     public $authors;
     public $faculties;
@@ -57,11 +58,13 @@ class EditResearch extends Component
         $authors = Student::where('research_id', $this->research_id)
             ->get();
 
+           /*  dd($authors->pluck('id')->toArray()); */
+
         $this->title = $research->title;
         $this->abstract = $research->abstract;
         $this->year = $research->year;
         $this->keywords = $research->keywords;
-        $this->studentAuthors = $authors;
+        $this->studentAuthors = $authors->pluck('id')->toArray();
         $this->currentAuthors = $authors->reject(function ($collection) {
             return $collection['id'] == session('user')->id;
         })->pluck('id');
@@ -75,8 +78,8 @@ class EditResearch extends Component
                 $query->where('id', '<>', session('user')->id)
                     ->where('program_id', session('user')->program_id);
             })
-            ->where(function ($query) {
-                $query->whereIn('research_id', $this->studentAuthors->reject(function ($collection) {
+            ->where(function ($query) use ($authors) {
+                $query->whereIn('research_id', $authors->reject(function ($collection) {
                     return $collection['id'] == session('user')->id;
                 })->pluck('research_id')->toArray())
                     ->orWhere('research_id', null);
@@ -92,6 +95,7 @@ class EditResearch extends Component
 
     public function updatedOnlyAuthor($value)
     {
+
         if ($value) {
             $this->showAuthorDiv = "d-none";
         }
@@ -104,7 +108,7 @@ class EditResearch extends Component
     public function editResearch()
     {
 
-        dd($this->studentAuthors, 'trigger');
+    /*     dd($this->studentAuthors, 'trigger'); */
 
         $this->validate();
 
@@ -139,6 +143,7 @@ class EditResearch extends Component
             */
             $authorsToRemove = collect($this->currentAuthors)->diff($this->studentAuthors);
 
+
             if (count($authorsToRemove) > 0) {
                 DB::beginTransaction();
                 $result = Student::where('research_id', $research->id)
@@ -157,6 +162,27 @@ class EditResearch extends Component
                 DB::beginTransaction();
                 $result = Student::whereIn('id', $studentIds)
                     ->update(['research_id' => $research->id]);
+
+                if ($result) {
+                    DB::commit();
+                } else {
+                    DB::rollBack();
+                    session()->flash('error', 'Error adding author');
+                }
+            }
+
+            if ($this->onlyAuthor) {
+
+                $studentIds = collect($studentIds)->reject(function ($value, $key) {
+                    return $value == session('user')->id;
+                })->toArray();
+
+              /*   dd($studentIds); */
+
+                DB::beginTransaction();
+                $result = Student::where('research_id', $research->id)
+                    ->whereIn('id', $studentIds) // ids of students to remove
+                    ->update(['research_id' => null]);
 
                 if ($result) {
                     DB::commit();
