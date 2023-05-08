@@ -8,6 +8,7 @@ use App\Models\Research;
 use App\Models\Student;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -49,6 +50,12 @@ class EditResearch extends Component
         'studentAuthors.required_if' => 'The author field is required.',
     ];
 
+
+    public function __construct()
+    {
+       Auth::shouldUse('student');
+    }
+
     public function mount()
     {
 
@@ -66,7 +73,7 @@ class EditResearch extends Component
         $this->keywords = $research->keywords;
         $this->studentAuthors = $authors->pluck('id')->toArray();
         $this->currentAuthors = $authors->reject(function ($collection) {
-            return $collection['id'] == session('user')->id;
+            return $collection['id'] == Auth::id();
         })->pluck('id');
         $this->adviser = $research->adviser->id;
         $this->facultyInCharge = $research->facultyInCharge->id;
@@ -75,19 +82,19 @@ class EditResearch extends Component
 
         $this->authors = Student::select('id', 'first_name', 'middle_name', 'last_name', 'research_id')
             ->where(function ($query) {
-                $query->where('id', '<>', session('user')->id)
-                    ->where('program_id', session('user')->program_id);
+                $query->where('id', '<>', Auth::id())
+                    ->where('program_id', Auth::user()->program_id);
             })
             ->where(function ($query) use ($authors) {
                 $query->whereIn('research_id', $authors->reject(function ($collection) {
-                    return $collection['id'] == session('user')->id;
+                    return $collection['id'] == Auth::id();
                 })->pluck('research_id')->toArray())
                     ->orWhere('research_id', null);
             })
             ->orderBy('first_name')->get();
 
         $this->faculties = Faculty::whereHas('college.program', function ($query) {
-            $query->where('id', session('user')->program_id)
+            $query->where('id', Auth::user()->program_id)
                 ->where('usertype_id', '<>', Role::CLERK)
                 ->where('usertype_id', '<>', Role::ADMIN);
         })->orderBy('first_name')->get();
@@ -174,7 +181,7 @@ class EditResearch extends Component
             if ($this->onlyAuthor) {
 
                 $studentIds = collect($studentIds)->reject(function ($value, $key) {
-                    return $value == session('user')->id;
+                    return $value == Auth::id();
                 })->toArray();
 
               /*   dd($studentIds); */

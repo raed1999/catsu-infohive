@@ -13,7 +13,7 @@
         </div>
     </div>
 
- {{--    {{ $user = session('user'); }}
+ {{--    {{ $user = Auth::user(); }}
     {{ dd($user) }} --}}
 
     <div class="row">

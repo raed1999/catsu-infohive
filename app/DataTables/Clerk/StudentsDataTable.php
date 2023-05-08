@@ -5,6 +5,7 @@ namespace App\DataTables\Clerk;
 use App\Constants\Role;
 use App\Models\Student;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
+use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
 use Yajra\DataTables\Html\Builder as HtmlBuilder;
 use Yajra\DataTables\Html\Button;
@@ -60,7 +61,7 @@ class StudentsDataTable extends DataTable
     {
         return $model
             ->where('usertype_id', Role::STUDENT)
-            ->whereRelation('program', 'college_id', session('user')->college_id)
+            ->whereRelation('program', 'college_id', Auth::user()->college_id)
             ->with('college', 'program')
             ->withTrashed()
             ->select('students.*');

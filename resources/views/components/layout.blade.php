@@ -99,7 +99,7 @@
 
                         <li>
                             <a class="dropdown-item d-flex align-items-center"
-                                href="{{ Auth::user()->usertype_id == 5 ? route('student.manage-account.show', Auth::user()->id) : '#' }}">
+                                href="{{ Auth::user()->usertype_id == 5 ? route('student.manage-account.show', Auth::id()) : '#' }}">
                                 <i class="bi bi-person"></i>
                                 <span>My Profile</span>
                             </a>

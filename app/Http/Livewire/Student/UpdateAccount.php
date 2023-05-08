@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Student;
 
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Session;
 use Livewire\Component;
@@ -28,7 +29,7 @@ class UpdateAccount extends Component
 
     public function mount()
     {
-        $this->student = Student::find(session('user')->id);
+        $this->student = Student::find(Auth::id());
         /*  $this->image = $this->student->image_path; */
     }
 
@@ -78,7 +79,7 @@ class UpdateAccount extends Component
 
     public function updateAvatar()
     {
-        $path = $this->image->storeAs('/image/profile', 'student-' . session('user')->id . '.' . $this->image->getClientOriginalExtension());
+        $path = $this->image->storeAs('/image/profile', 'student-' . Auth::id() . '.' . $this->image->getClientOriginalExtension());
         $this->student->image_path = $path;
         $this->student->save();
 

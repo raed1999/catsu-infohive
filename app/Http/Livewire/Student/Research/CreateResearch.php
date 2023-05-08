@@ -7,6 +7,7 @@ use App\Models\Faculty;
 use App\Models\Research;
 use App\Models\Student;
 use Carbon\Carbon;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 use Illuminate\Support\Str;
 use Livewire\Component;
@@ -43,6 +44,11 @@ class CreateResearch extends Component
         'studentAuthors.required_if' => 'The author field is required.',
     ];
 
+    public function __construct()
+    {
+       Auth::shouldUse('student');
+    }
+
     public function mount()
     {
 
@@ -57,13 +63,13 @@ class CreateResearch extends Component
         $this->showAuthorDiv = "";
 
         $this->authors = Student::select('id', 'first_name', 'middle_name', 'last_name')
-            ->where('id', '<>', session('user')->id)
+            ->where('id', '<>', Auth::id())
             ->where('research_id', null)
-            ->where('program_id', session('user')->program_id)->orderBy('first_name')
+            ->where('program_id', Auth::user()->program_id)->orderBy('first_name')
             ->get();
 
         $this->faculties = Faculty::whereHas('college.program', function ($query) {
-            $query->where('id', session('user')->program_id)
+            $query->where('id', Auth::user()->program_id)
                 ->where('usertype_id', '<>', Role::CLERK);
         })->orderBy('first_name')->get();
     }
@@ -123,7 +129,8 @@ class CreateResearch extends Component
 
             /* Author that uploads */
             DB::beginTransaction();
-            $student = Student::find(session('user')->id);
+            $student = Student::find(Auth::id());
+
             $student->research_id = $lastInsertedId;
 
             if ($student->save()) {

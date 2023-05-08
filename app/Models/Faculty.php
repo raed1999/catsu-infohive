@@ -38,32 +38,32 @@ class Faculty extends Model implements Authenticatable
 
     public function getAuthIdentifierName()
     {
-        return 'id'; // or any other name of the unique identifier field
+        return 'id';
     }
 
     public function getAuthIdentifier()
     {
-        return $this->id; // or any other unique identifier field value
+        return $this->id;
     }
 
     public function getAuthPassword()
     {
-        return $this->password; // or any other hashed password field value
+        return $this->password;
     }
 
     public function getRememberToken()
     {
-        return $this->remember_token; // or any other remember token field value
+        return $this->remember_token;
     }
 
     public function setRememberToken($value)
     {
-        $this->remember_token = $value; // or any other remember token field name
+        $this->remember_token = $value;
     }
 
     public function getRememberTokenName()
     {
-        return 'remember_token'; // or any other remember token field name
+        return 'remember_token';
     }
 
 

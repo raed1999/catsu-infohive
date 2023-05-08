@@ -9,6 +9,7 @@ use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Constants\Role;
+use Illuminate\Support\Facades\Auth;
 
 class AdminController extends Controller
 {
@@ -53,7 +54,7 @@ class AdminController extends Controller
         $faculty->email = $validated['email'];
 
         $faculty->usertype_id = Role::DEAN;
-        $faculty->added_by_id = session('user')->id;
+        $faculty->added_by_id = Auth::id();
 
         if (!$faculty->save()) {
             return redirect()->route('admin.manage-dean.create');

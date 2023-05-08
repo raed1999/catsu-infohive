@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Research;
 use App\Models\Student;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
 class ResearchController extends Controller
@@ -16,7 +17,7 @@ class ResearchController extends Controller
     public function index()
     {
 
-        $user = session('user');
+        $user = Auth::user();
 
         if ($user->research_id == null || empty($user->research_id)) {
             return view('student.research.index');
@@ -53,7 +54,6 @@ class ResearchController extends Controller
      */
     public function show(string $id)
     {
-
     }
 
     /**
@@ -61,7 +61,7 @@ class ResearchController extends Controller
      */
     public function edit(string $id)
     {
-        return view('student.research.edit',['research_id' => $id]);
+        return view('student.research.edit', ['research_id' => $id]);
     }
 
     /**

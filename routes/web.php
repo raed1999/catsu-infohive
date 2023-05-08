@@ -7,7 +7,7 @@ use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
 use App\Http\Controllers\Student\ResearchController;
 use App\Http\Controllers\Student\StudentController;
-use Illuminate\Support\Facades\Auth;
+
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -53,7 +53,7 @@ Route::name('auth.')->group(function () {
  */
 Route::prefix('a')
     ->name('admin.')
-    ->middleware(['is.logged.in','use.faculty.guard'])
+    ->middleware(['use.faculty.guard','is.logged.in'])
     ->group(function () {
         Route::resource('/manage-dean', AdminController::class)->withTrashed();
         Route::delete('/manage-dean/{manage_dean}/restore', [AdminController::class, 'restore'])->withTrashed(['show'])->name('manage-dean.restore');
@@ -64,7 +64,7 @@ Route::prefix('a')
  */
 Route::prefix('d')
     ->name('dean.')
-    ->middleware(['is.logged.in','use.faculty.guard'])
+     ->middleware(['use.faculty.guard','is.logged.in'])
     ->group(function () {
         Route::resource('/manage-clerk', DeanController::class)->withTrashed(['show']);
         Route::delete('/manage-clerk/{manage_clerk}/restore', [DeanController::class, 'restore'])->withTrashed(['show'])->name('manage-clerk.restore');
@@ -75,7 +75,7 @@ Route::prefix('d')
  */
 Route::prefix('c')
     ->name('clerk.')
-    ->middleware(['is.logged.in','use.faculty.guard'])
+     ->middleware(['use.faculty.guard','is.logged.in'])
     ->group(function () {
         Route::resource('/manage-student', ClerkController::class)->withTrashed();
         Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed()->name('manage-student.restore');

@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\DataTables\Clerk\StudentsDataTable;
 use App\Models\Student;
+use Illuminate\Support\Facades\Auth;
 
 class ClerkController extends Controller
 {
@@ -46,9 +47,9 @@ class ClerkController extends Controller
         $faculty->email = $validated['email'];
 
 
-        $faculty->college_id = session('user')->college_id;
+        $faculty->college_id = Auth::user()->college_id;
         $faculty->usertype_id = Role::CLERK;
-        $faculty->added_by_id = session('user')->id;
+        $faculty->added_by_id = Auth::id();
 
         if (!$faculty->save()) {
             return redirect()->route('dean.manage-clerk.create');
@@ -112,7 +113,7 @@ class ClerkController extends Controller
     {
         $student = Student::withTrashed()->find($id);
         $student->email_verified_at = now();
-        $student->confirmed_by_id = session('user')->id;
+        $student->confirmed_by_id = Auth::id();
 
         $student->save();
 
@@ -123,7 +124,7 @@ class ClerkController extends Controller
     {
         $student = Student::withTrashed()->find($id);
         $student->email_verified_at = null;
-        $student->confirmed_by_id = session('user')->id;
+        $student->confirmed_by_id = Auth::id();
 
         $student->save();
 

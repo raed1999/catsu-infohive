@@ -8,6 +8,7 @@ use App\Models\Faculty;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\Constants\Role;
+use Illuminate\Support\Facades\Auth;
 
 class DeanController extends Controller
 {
@@ -50,9 +51,9 @@ class DeanController extends Controller
         $faculty->email = $validated['email'];
 
 
-        $faculty->college_id = session('user')->college_id;
+        $faculty->college_id = Auth::user()->college_id;
         $faculty->usertype_id = Role::CLERK;
-        $faculty->added_by_id = session('user')->id;
+        $faculty->added_by_id = Auth::id();
 
         if (!$faculty->save()) {
             return redirect()->route('dean.manage-clerk.create');

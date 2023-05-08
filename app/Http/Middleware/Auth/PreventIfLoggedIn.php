@@ -5,6 +5,7 @@ namespace App\Http\Middleware\Auth;
 use App\Constants\Role;
 use Closure;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class PreventIfLoggedIn
@@ -17,15 +18,13 @@ class PreventIfLoggedIn
     public function handle(Request $request, Closure $next): Response
     {
 
-        if (session()->has('user')) {
+        if (Auth::check()) {
 
-            $user = session('user');
-
-            if ($user->usertype_id == Role::ADMIN) {
+            if (Auth::user()->usertype_id == Role::ADMIN) {
                 return redirect()->route('admin.manage-dean.index');
             }
 
-            if ($user->usertype_id == Role::DEAN) {
+            if (Auth::user()->usertype_id == Role::DEAN) {
                 return redirect()->route('dean.manage-clerk.index');
             }
         }

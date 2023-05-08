@@ -11,8 +11,8 @@
         <div class="col-auto">
         </div>
     </div>
-    {{--     {{ dd(session('user')) }} --}}
-    @if (session('user')->research_id == null)
+    {{--     {{ dd(Auth::user()) }} --}}
+    @if (Auth::user()->research_id == null)
         <div class="row mb-2 justify-content-between">
             <div class="col">
                 <div class="alert alert-light border-light fade show" role="alert">
@@ -25,7 +25,7 @@
         </div>
     @endif
 
-    @if (session('user')->research_id)
+    @if (Auth::user()->research_id)
 
         <div class="card">
             {{--  <div class="card-header">Header</div> --}}

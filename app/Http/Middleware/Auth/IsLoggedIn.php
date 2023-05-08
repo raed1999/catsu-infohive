@@ -16,6 +16,7 @@ class IsLoggedIn
      */
     public function handle(Request $request, Closure $next): Response
     {
+
         if (!Auth::user()->id) {
 
             return redirect()->route('auth.login');

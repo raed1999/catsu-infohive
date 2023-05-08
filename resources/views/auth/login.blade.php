@@ -100,7 +100,7 @@
                                             <label for="usertype" class="form-label">User type</label>
                                             <select class="form-select" name="usertype" id="usertype"
                                                 aria-label="Default select example">
-                                                <option value="">Choose ...</option>
+                                                <option value="" disabled selected></option>
                                                 <option @if( old('usertype') == 4 ) selected @endif value="4">Faculty</option>
                                                 <option @if( old('usertype') == 5 ) selected @endif value="5">Student</option>
                                             </select>

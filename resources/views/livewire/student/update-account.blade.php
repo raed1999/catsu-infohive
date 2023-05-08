@@ -6,12 +6,12 @@
 
                     <div class="card">
                         <div class="card-body profile-card pt-4 d-flex flex-column align-items-center">
-                            <img src="@if (session('user')->image_path != null) @if (session('user'))
-                            {{ asset(session('user')->image_path) }} @endif
+                            <img src="@if (Auth::user()->image_path != null) @if (Auth::user())
+                            {{ asset(Auth::user()->image_path) }} @endif
 @else
 {{ asset('assets/img/profile-img.jpg') }} @endif"
                                 alt="Profile" class="rounded-circle">
-                            <h2>{{ session('user')->first_name . ' ' . session('user')->middle_name[0] . '. ' . session('user')->last_name }}
+                            <h2>{{ Auth::user()->first_name . ' ' . Auth::user()->middle_name[0] . '. ' . Auth::user()->last_name }}
                             </h2>
                             <h3>{{ 'Usertype' . ', ' . 'college' }}</h3>
                             {{--  <div class="social-links mt-2">
@@ -59,23 +59,23 @@
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label ">Full Name</div>
                                         <div class="col-lg-9 col-md-8">
-                                            {{ session('user')->first_name . ' ' . session('user')->middle_name . ' ' . session('user')->last_name }}
+                                            {{ Auth::user()->first_name . ' ' . Auth::user()->middle_name . ' ' . Auth::user()->last_name }}
                                         </div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">College</div>
-                                        <div class="col-lg-9 col-md-8">{{ session('user')->college->name }}</div>
+                                        <div class="col-lg-9 col-md-8">{{ Auth::user()->college->name }}</div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Program</div>
-                                        <div class="col-lg-9 col-md-8">{{ session('user')->program->name }}</div>
+                                        <div class="col-lg-9 col-md-8">{{ Auth::user()->program->name }}</div>
                                     </div>
 
                                     <div class="row">
                                         <div class="col-lg-3 col-md-4 label">Email</div>
-                                        <div class="col-lg-9 col-md-8">{{ session('user')->email }}</div>
+                                        <div class="col-lg-9 col-md-8">{{ Auth::user()->email }}</div>
                                     </div>
                                 </div>
 
