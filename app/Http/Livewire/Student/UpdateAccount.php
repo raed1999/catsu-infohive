@@ -27,6 +27,11 @@ class UpdateAccount extends Component
         /*  'student.email' => 'required|email:rfs,dns|unique:students,email', */
     ];
 
+    public function __construct()
+    {
+       Auth::shouldUse('student');
+    }
+
     public function mount()
     {
         $this->student = Student::find(Auth::id());

@@ -13,7 +13,8 @@
                                 alt="Profile" class="rounded-circle">
                             <h2>{{ Auth::user()->first_name . ' ' . Auth::user()->middle_name[0] . '. ' . Auth::user()->last_name }}
                             </h2>
-                            <h3>{{ 'Usertype' . ', ' . 'college' }}</h3>
+                       {{--      {{ dd(Auth::user()->userType->name) }} --}}
+                            <h3>{{ Str::title(Auth::user()->userType->name ) . ', ' . Auth::user()->college->acroname }}</h3>
                             {{--  <div class="social-links mt-2">
                                 <a href="#" class="twitter"><i class="bi bi-twitter"></i></a>
                                 <a href="#" class="facebook"><i class="bi bi-facebook"></i></a>
