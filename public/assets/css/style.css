@@ -44,6 +44,9 @@ h6 {
     margin-top: 60px;
     padding: 20px 30px;
     transition: all 0.3s;
+    position: relative;
+ /*    width: 600px;
+    height: 400px; */
 }
 
 @media (max-width: 1199px) {
@@ -1265,3 +1268,4 @@ h6 {
 #main div.row.justify-content-center div.form-control.dropdown span {
     line-height: 2 !important;
 }
+

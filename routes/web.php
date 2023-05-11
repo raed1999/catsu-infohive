@@ -5,6 +5,7 @@ use App\Http\Controllers\Dean\DeanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
+use App\Http\Controllers\Research\ResearchController as SearchResearchController;
 use App\Http\Controllers\Student\ResearchController;
 use App\Http\Controllers\Student\StudentController;
 
@@ -53,7 +54,7 @@ Route::name('auth.')->group(function () {
  */
 Route::prefix('a')
     ->name('admin.')
-    ->middleware(['use.faculty.guard','is.logged.in'])
+    ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
     ->group(function () {
         Route::resource('/manage-dean', AdminController::class)->withTrashed();
         Route::delete('/manage-dean/{manage_dean}/restore', [AdminController::class, 'restore'])->withTrashed(['show'])->name('manage-dean.restore');
@@ -64,7 +65,7 @@ Route::prefix('a')
  */
 Route::prefix('d')
     ->name('dean.')
-     ->middleware(['use.faculty.guard','is.logged.in'])
+     ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
     ->group(function () {
         Route::resource('/manage-clerk', DeanController::class)->withTrashed(['show']);
         Route::delete('/manage-clerk/{manage_clerk}/restore', [DeanController::class, 'restore'])->withTrashed(['show'])->name('manage-clerk.restore');
@@ -75,7 +76,7 @@ Route::prefix('d')
  */
 Route::prefix('c')
     ->name('clerk.')
-     ->middleware(['use.faculty.guard','is.logged.in'])
+     ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
     ->group(function () {
         Route::resource('/manage-student', ClerkController::class)->withTrashed();
         Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed()->name('manage-student.restore');
@@ -88,7 +89,7 @@ Route::prefix('c')
  */
 Route::prefix('s')
     ->name('student.')
-    ->middleware(['use.student.guard','is.logged.in'])
+    ->middleware(['use.student.guard','auth.session','is.logged.in'])
     ->group(function () {
 
         /* Manage Account */
@@ -104,4 +105,14 @@ Route::prefix('s')
         /* Research */
         Route::resource('/research', ResearchController::class);
         Route::get('/research/load-students',[ResearchController::class, 'loadStudents'])->name('research.load-students');
+    });
+
+Route::prefix('research')
+    ->name('research.')
+    ->middleware(['is.guard.present'])
+    ->group(function () {
+
+        /* Manage Account */
+        Route::resource('/search', SearchResearchController::class)->withTrashed();
+
     });

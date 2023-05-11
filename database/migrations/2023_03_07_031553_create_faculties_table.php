@@ -28,6 +28,7 @@ return new class extends Migration
             $table->softDeletes();
 
             $table->rememberToken();
+            $table->timestamp('session_expires_at')->nullable();
             $table->timestamps();
         });
     }

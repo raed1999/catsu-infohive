@@ -34,8 +34,8 @@
     @vite(['resources/css/app.css'])
 
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
-
     @livewireStyles()
+
 
 
     <!-- Template Main CSS File -->
@@ -45,7 +45,7 @@
 
 </head>
 
-<body>
+<body @guest class="toggle-sidebar" @endguest>
 
     <!-- ======= Header ======= -->
     <header id="header" class="header fixed-top d-flex align-items-center" style="height: 8vh">
@@ -55,15 +55,10 @@
                 <img src="{{ asset('assets/img/catsu.png') }}" alt="">
                 <span class="d-none d-lg-block">CatSu InfoHive</span>
             </a>
-            <i class="bi bi-list toggle-sidebar-btn"></i>
+            @auth
+                <i class="bi bi-list toggle-sidebar-btn"></i>
+            @endauth
         </div><!-- End Logo -->
-
-        <div class="search-bar">
-            <form class="search-form d-flex align-items-center" method="POST" action="#">
-                <input type="text" name="query" placeholder="Search" title="Enter search keyword">
-                <button type="submit" title="Search"><i class="bi bi-search"></i></button>
-            </form>
-        </div><!-- End Search Bar -->
 
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
@@ -74,72 +69,54 @@
                     </a>
                 </li><!-- End Search Icon-->
 
+                @auth
+                    <li class="nav-item dropdown pe-3">
+                        <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
+                            data-bs-toggle="dropdown">
+                            <img src="{{ Auth::user()->image_path ? asset(Auth::user()->image_path) : asset('assets/img/profile-img.jpg') }}"
+                                alt="Profile" class="rounded-circle">
+                            <span
+                                class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . Auth::user()->first_name }}</span>
+                        </a>
 
-                <li class="nav-item dropdown pe-3">
+                        <!-- End Profile Iamge Icon -->
 
-                    <a class="nav-link nav-profile d-flex align-items-center pe-0" href="#"
-                        data-bs-toggle="dropdown">
-                        <img src="@if (Auth::user()->image_path != null) @if (Auth::user())
-                        {{ asset(Auth::user()->image_path) }} @endif
-@else
-{{ asset('assets/img/profile-img.jpg') }} @endif"
-                            alt="Profile" class="rounded-circle">
-                        <span
-                            class="d-none d-md-block dropdown-toggle ps-2">{{ 'Hi, ' . Auth::user()->first_name }}</span>
-                    </a><!-- End Profile Iamge Icon -->
+                        <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
+                            <li class="dropdown-header">
+                                <h6>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h6>
+                                <span>{{ Auth::user()->college->acroname }}</span>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
 
-                    <ul class="dropdown-menu dropdown-menu-end dropdown-menu-arrow profile">
-                        <li class="dropdown-header">
-                            <h6>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}</h6>
-                            <span>{{ Auth::user()->college->acroname }}</span>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                            <li>
+                                <a class="dropdown-item d-flex align-items-center"
+                                    href="{{ Auth::user()->usertype_id == 5 ? route('student.manage-account.show', Auth::id()) : '#' }}">
+                                    <i class="bi bi-person"></i>
+                                    <span>My Profile</span>
+                                </a>
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
+                            <li>
+                                <hr class="dropdown-divider">
+                            </li>
 
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center"
-                                href="{{ Auth::user()->usertype_id == 5 ? route('student.manage-account.show', Auth::id()) : '#' }}">
-                                <i class="bi bi-person"></i>
-                                <span>My Profile</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
+                            <li>
+                                <form action="{{ route('auth.logout') }}" method="post">
+                                    @csrf
+                                    <button class="dropdown-item d-flex align-items-center">
+                                        <i class="bi bi-box-arrow-right"></i>
+                                        <span>Sign Out</span>
+                                    </button>
+                                </form>
+                            </li>
 
-                        {{--  <li>
-                            <a class="dropdown-item d-flex align-items-center" href="users-profile.html">
-                                <i class="bi bi-gear"></i>
-                                <span>Account Settings</span>
-                            </a>
-                        </li>
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <a class="dropdown-item d-flex align-items-center" href="pages-faq.html">
-                                <i class="bi bi-question-circle"></i>
-                                <span>Need Help?</span>
-                            </a>
-                        </li> --}}
-                        <li>
-                            <hr class="dropdown-divider">
-                        </li>
-
-                        <li>
-                            <form action="{{ route('auth.logout') }}" method="post">
-                                @csrf
-                                <button class="dropdown-item d-flex align-items-center">
-                                    <i class="bi bi-box-arrow-right"></i>
-                                    <span>Sign Out</span>
-                                </button>
-                            </form>
-                        </li>
-
-                    </ul><!-- End Profile Dropdown Items -->
-                </li><!-- End Profile Nav -->
+                        </ul><!-- End Profile Dropdown Items -->
+                    </li><!-- End Profile Nav -->
+                @endauth
 
             </ul>
         </nav><!-- End Icons Navigation -->
@@ -148,33 +125,34 @@
 
     {{-- Sidebar --}}
 
-    {{-- For Admin --}}
-    @if (Auth::user()->usertype_id == 1)
-        <x-sidebars.admin-sidebar />
-    @endif
+    @auth
+        {{-- For Admin --}}
+        @if (Auth::user()->usertype_id == 1)
+            <x-sidebars.admin-sidebar />
+        @endif
 
-    {{-- For Dean --}}
-    @if (Auth::user()->usertype_id == 2)
-        <x-sidebars.dean-sidebar />
-    @endif
+        {{-- For Dean --}}
+        @if (Auth::user()->usertype_id == 2)
+            <x-sidebars.dean-sidebar />
+        @endif
 
-    {{-- For clerk  --}}
-    @if (Auth::user()->usertype_id == 3)
-        <x-sidebars.clerk-sidebar />
-    @endif
+        {{-- For clerk  --}}
+        @if (Auth::user()->usertype_id == 3)
+            <x-sidebars.clerk-sidebar />
+        @endif
 
-    {{-- For Faculty  --}}
-    {{-- D A I   P A --}}
+        {{-- For Faculty  --}}
+        {{-- D A I   P A --}}
 
-    {{-- For Student  --}}
-    @if (Auth::user()->usertype_id == 5)
-        <x-sidebars.student-sidebar />
-    @endif
-
+        {{-- For Student  --}}
+        @if (Auth::user()->usertype_id == 5)
+            <x-sidebars.student-sidebar />
+        @endif
+    @endauth
 
     {{-- End of Sidebar --}}
 
-    <main id="main" class="main" style="height: auto">
+    <main id="main" class="main scroll-container" style="height: auto">
 
         {{ $slot }}
 
@@ -195,30 +173,25 @@
 
     <!-- Vendor JS Files -->
 
-
-    {{--    <script src="{{ asset('assets/vendor/apexcharts/apexcharts.min.js') }}"></script> --}}
     <script src="{{ asset('assets/vendor/bootstrap/js/bootstrap.bundle.min.js') }}"></script>
     <script src="{{ asset('assets/vendor/tinymce/tinymce.min.js') }}"></script>
-    {{--    <script src="{{ asset('assets/vendor/php-email-form/validate.js') }}"></script> --}}
     <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
-
-    {{--  <script src="https://cdn.datatables.net/v/bs5/dt-1.13.3/datatables.min.js"></script> --}}
     <script
         src="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.js">
     </script>
 
-    @livewireScripts()
     @vite(['resources/js/app.js']);
+    @stack('scripts')
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>
 
-    @stack('scripts')
+    @livewireScripts()
 
     <script>
-        $('#deans-table').on('draw.dt', function() {
+        $('[id*="-table"]').on('draw.dt', function() {
             $('[data-bs-toggle="tooltip"]').tooltip();
-        })
+        });
     </script>
 
 

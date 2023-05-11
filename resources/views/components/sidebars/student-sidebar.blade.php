@@ -12,11 +12,17 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{  route('student.research.index')  }}">
+                <a class="nav-link collapsed" href="{{ route('student.research.index') }}">
                     <i class="bi bi-book"></i>
                     <span>Capstone | Thesis</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('research.search.index') }}">
+                    <i class="bi bi-search"></i>
+                    <span>Search Capstone | Thesis</span>
                 </a>
             </li>
         </ul>

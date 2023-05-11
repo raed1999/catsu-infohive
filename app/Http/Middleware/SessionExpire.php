@@ -6,21 +6,11 @@ use App\Http\Controllers\Auth\LogoutController;
 use Closure;
 use Illuminate\Http\Request;
 use Illuminate\Session\Store as SessionStore;
+use Illuminate\Support\Facades\Auth;
 use Symfony\Component\HttpFoundation\Response;
 
 class SessionExpire
 {
-
-    protected $session;
-    protected $timeout;
-    protected $logout;
-
-    public function __construct(SessionStore $session)
-    {
-        $this->session = $session;
-        $this->timeout = env('SESSION_TIMEOUT');
-
-    }
 
     /**
      * Handle an incoming request.
@@ -29,22 +19,15 @@ class SessionExpire
      */
     public function handle(Request $request, Closure $next): Response
     {
-        $isLoggedIn = $request->path() != '/logout';
-
-        if (!session('lastActivityTime'))
-
-            $this->session->put('lastActivityTime', time());
-
-        elseif (time() - $this->session->get('lastActivityTime') > $this->timeout) {
-
-            $this->session->forget('lastActivityTime');
-            $cookie = cookie('intend', $isLoggedIn ? url()->current() : 'dashboard');
-            /*  auth()->logout(); */
+        if (Auth::check() && time() > Auth::user()->session_expires_at) {
 
             auth()->logout();
+            session()->invalidate();
+            session()->regenerateToken();
+
+            return redirect()->route('auth.login')->with('expired', 'Your session has expired. Please log in again.');
         }
 
-        $isLoggedIn ? $this->session->put('lastActivityTime', time()) : $this->session->forget('lastActivityTime');
         return $next($request);
     }
 }

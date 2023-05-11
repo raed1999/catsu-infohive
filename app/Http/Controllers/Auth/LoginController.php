@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Auth;
 
 use App\Constants\Role;
 use App\Http\Controllers\Controller;
+use App\Models\Faculty;
+use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
@@ -34,6 +36,12 @@ class LoginController extends Controller
 
                 $request->session()->regenerate();
 
+                $expiresAt = now()->addSeconds(config('session.lifetime'));
+                $user = Faculty::find(Auth::user()->id);
+                $user->session_expires_at = $expiresAt;
+                $user->save();
+
+
                 /* For Admin */
                 if (Auth::user()->usertype_id === Role::ADMIN) {
                     return redirect()->intended(route('admin.manage-dean.index'));
@@ -48,7 +56,6 @@ class LoginController extends Controller
                 if (Auth::user()->usertype_id === Role::CLERK) {
                     return redirect()->intended(route('clerk.manage-student.index'));
                 }
-
             } else {
                 return back()->withErrors([
                     'password' => 'Incorrect password',
@@ -65,6 +72,11 @@ class LoginController extends Controller
                 Auth::shouldUse('student');
 
                 $request->session()->regenerate();
+
+                $expiresAt = now()->addSeconds(config('session.lifetime'));
+                $user = Student::find(Auth::user()->id);
+                $user->session_expires_at = $expiresAt;
+                $user->save();
 
                 if (Auth::user()->email_verified_at) {
                     return redirect()->intended(route('student.dashboard.index'));

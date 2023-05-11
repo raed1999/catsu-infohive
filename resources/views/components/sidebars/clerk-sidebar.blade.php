@@ -21,7 +21,14 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{ route('research.search.index') }}">
+                    <i class="bi bi-search"></i>
+                    <span>Search Capstone | Thesis</span>
+                </a>
+            </li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('clerk.manage-student.index') }}">
                     <i class="bi bi-person"></i>
                     <span>Student</span>
                 </a>
