@@ -63,11 +63,34 @@
         <nav class="header-nav ms-auto">
             <ul class="d-flex align-items-center">
 
-                <li class="nav-item d-block d-lg-none">
+                {{--   <li class="nav-item d-block d-lg-none">
                     <a class="nav-link nav-icon search-bar-toggle " href="#">
                         <i class="bi bi-search"></i>
                     </a>
-                </li><!-- End Search Icon-->
+                </li> --}}
+                <!-- End Search Icon-->
+
+                @guest
+                    @if (Route::is('research.search.index'))
+                        <li class="nav-item me-5 text-center">
+                            <a class="nav-link" href="{{ route('auth.login') }}">
+                                Login
+                            </a>
+                        </li>
+                        <li class="nav-item me-5 ">
+                            <a class="nav-link" href="{{ route('auth.register') }}">
+                                Register
+                            </a>
+                        </li>
+                    @else
+                        <li class="nav-item me-5 ">
+                            <a class="nav-link" href="{{ route('research.search.index') }}">
+                                Search Capstone|Thesis
+                            </a>
+                        </li>
+                    @endif
+
+                @endguest
 
                 @auth
                     <li class="nav-item dropdown pe-3">
