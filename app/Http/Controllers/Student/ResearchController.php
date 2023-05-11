@@ -24,10 +24,9 @@ class ResearchController extends Controller
         } else {
             $research = Research::with('adviser:id,first_name,middle_name,last_name')
                 ->with('facultyInCharge:id,first_name,middle_name,last_name')
+                ->with('authors:id,first_name,middle_name,last_name')
                 ->find($user->research_id);
-            $authors = Student::where('research_id', $user->research_id)
-                ->get();
-            return view('student.research.index', compact('research', 'authors'));
+            return view('student.research.index', compact('research'));
         }
     }
 
@@ -41,55 +40,10 @@ class ResearchController extends Controller
     }
 
     /**
-     * Store a newly created resource in storage.
-     */
-    public function store(Request $request)
-    {
-        /* return view('student.research.store'); */
-        dd($request->all());
-    }
-
-    /**
-     * Display the specified resource.
-     */
-    public function show(string $id)
-    {
-    }
-
-    /**
      * Show the form for editing the specified resource.
      */
     public function edit(string $id)
     {
         return view('student.research.edit', ['research_id' => $id]);
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, string $id)
-    {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(string $id)
-    {
-        //
-    }
-
-
-    /**
-     *  Returns API Call for Author
-     * */
-    public function loadStudents(string $id)
-    {
-        // $students = Student::all('id','name');
-        $students = Student::select(DB::raw("CONCAT(first_name, ' ', COALESCE(middle_name, ''), ' ', last_name) AS label"), "id AS value")
-            ->get();
-
-        return response()->json($students);
     }
 }

@@ -44,7 +44,7 @@
                 <div class="mb-3">
                     <h4 class="card-title py-2 mb-0">Authors</h4>
                     <p class="">
-                        @foreach ($authors as $author)
+                        @foreach ($research->authors as $author)
                             <span class="me-3 fw-bold"> <i class="bx bxs-user"></i>
                                 {{ $author->first_name . ' ' . $author->middle_name . ' ' . $author->last_name }}</span>
                         @endforeach

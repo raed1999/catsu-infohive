@@ -86,8 +86,8 @@
 
                                         <div class="col-12">
                                             <label for="username" class="form-label">Username</label>
-                                            <input type="text" value="{{ old('username') }}" name="username" class="form-control" id="username"
-                                                required>
+                                            <input type="text" value="{{ old('username') }}" name="username"
+                                                class="form-control" id="username" required>
                                             @error('username')
                                                 <div class="text-danger">
                                                     {{ $message }}
@@ -101,8 +101,10 @@
                                             <select class="form-select" name="usertype" id="usertype"
                                                 aria-label="Default select example">
                                                 <option value="" disabled selected></option>
-                                                <option @if( old('usertype') == 4 ) selected @endif value="4">Faculty</option>
-                                                <option @if( old('usertype') == 5 ) selected @endif value="5">Student</option>
+                                                <option @if (old('usertype') == 4) selected @endif
+                                                    value="4">Faculty</option>
+                                                <option @if (old('usertype') == 5) selected @endif
+                                                    value="5">Student</option>
                                             </select>
                                             @error('usertype')
                                                 <div class="text-danger">
@@ -122,7 +124,7 @@
                                             @enderror
                                         </div>
 
-                                      {{--   <div class="col-12">
+                                        {{--   <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember"
                                                     value="true" id="rememberMe">

@@ -2,6 +2,7 @@
 
 namespace Database\Seeders;
 
+use App\Models\Student;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\DB;
@@ -16,33 +17,35 @@ class StudentSeeder extends Seeder
     {
 
         /* Student CICT [BSIT] Dummy Data */
-        for ($i = 0; $i < 5; $i++) {
-            DB::table('students')->insert([
+        for ($i = 0; $i < 30; $i++) {
+            $student = new Student([
                 'first_name' => fake()->firstName(),
                 'middle_name' => fake()->lastName(),
                 'last_name' => fake()->lastName(),
                 'email' => fake()->email(),
                 'student_id' => fake()->numerify('2018-#####'),
+                'research_id' => fake()->numberBetween(1,15),
                 'program_id' => 3,
                 'usertype_id' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+                ]);
+
+                $student->save();
         }
 
         /* Student CEA [BSCE] Dummy Data */
         for ($i = 0; $i < 5; $i++) {
-            DB::table('students')->insert([
+            $student = new Student([
                 'first_name' => fake()->firstName(),
                 'middle_name' => fake()->lastName(),
                 'last_name' => fake()->lastName(),
                 'email' => fake()->email(),
                 'student_id' => fake()->numerify('2018-#####'),
+                'research_id' => fake()->numberBetween(1,15),
                 'program_id' => 4,
                 'usertype_id' => 5,
-                'created_at' => now(),
-                'updated_at' => now(),
-            ]);
+                ]);
+
+                $student->save();
         }
     }
 }

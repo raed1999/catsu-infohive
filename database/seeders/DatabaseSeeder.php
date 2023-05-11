@@ -24,7 +24,12 @@ class DatabaseSeeder extends Seeder
 
         $this->call(ProgramSeeder::class);
 
+        $this->call(ResearchSeeder::class);
+
         $this->call(StudentSeeder::class);
+
+
+
 
     }
 }

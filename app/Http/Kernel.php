@@ -22,7 +22,6 @@ class Kernel extends HttpKernel
         \App\Http\Middleware\TrimStrings::class,
         \Illuminate\Foundation\Http\Middleware\ConvertEmptyStringsToNull::class,
 
-
     ];
 
     /**
@@ -37,6 +36,7 @@ class Kernel extends HttpKernel
             \Illuminate\Session\Middleware\StartSession::class,
             \Illuminate\View\Middleware\ShareErrorsFromSession::class,
 
+            /* Invalidates the user after a certain time of unactivity */
             \App\Http\Middleware\SessionExpire::class,
 
             \App\Http\Middleware\VerifyCsrfToken::class,
@@ -73,5 +73,6 @@ class Kernel extends HttpKernel
         'prevent.if.logged.in' => \App\Http\Middleware\Auth\PreventIfLoggedIn::class,
         'use.faculty.guard' => \App\Http\Middleware\Auth\UseFacultyGuard::class,
         'use.student.guard' => \App\Http\Middleware\Auth\UseStudentGuard::class,
+        'is.guard.present' => \App\Http\Middleware\Auth\IsGuardPresent::class,
     ];
 }

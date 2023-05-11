@@ -11,8 +11,7 @@ use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Student extends Model implements Authenticatable
 {
-    use HasFactory, SoftDeletes;
-    use \Znck\Eloquent\Traits\BelongsToThrough;
+    use HasFactory, SoftDeletes, BelongsToThrough;
 
     protected $fillable = ['password'];
 
@@ -34,14 +33,27 @@ class Student extends Model implements Authenticatable
         return $this->belongsToThrough(College::class, Program::class);
     }
 
-    /* Concatenate Full Name */
-    public function getFullName(){
-        return "{$this->first_name} {$this->last_name}";
+   /**
+     * Get the indexable data array for the model.
+     *
+     * @return array<string, mixed>
+     */
+    public function toSearchableArray(): array
+    {
+        $array = $this->toArray();
+
+        // Customize the data array...
+
+        return $array;
     }
 
     protected $casts = [
         'created_at' => 'datetime:M d o',
         'updated_at' => 'datetime:M d o',
+    ];
+
+    protected $dates = [
+        'session_expires_at',
     ];
 
     public function getAuthIdentifierName()

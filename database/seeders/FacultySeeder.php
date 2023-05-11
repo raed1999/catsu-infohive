@@ -20,8 +20,8 @@ class FacultySeeder extends Seeder
          *  Default admin account
          *
          * */
-        DB::table('faculties')->insert([
-            'id' => 1 ,
+        $faculty = new Faculty([
+            'id' => 1,
             'first_name' => 'Admin',
             'email' => 'admin@admin.com',
             'email_verified_at' => now(),
@@ -32,11 +32,14 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        $faculty->save();
+
+
         /* CICT Default Accounts */
 
         /* Dean */
         $cict = College::where('acroname', 'CICT')->value('id');
-        DB::table('faculties')->insert([
+        $faculty = new Faculty([
             'first_name' => 'Ma. Emmie',
             'middle_name' => 'Tacorda',
             'last_name' => 'Dellusa',
@@ -49,9 +52,11 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        $faculty->save();
+
         /* Clerk */
         $cictDean = Faculty::where('email', 'cict@dean.com')->value('id');
-        DB::table('faculties')->insert([
+        $faculty = new Faculty([
             'first_name' => 'Gerinina Niña',
             'middle_name' => 'Narcelles',
             'last_name' => 'Reyes',
@@ -64,9 +69,10 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        /* Other Teaching Faculties */
+        $faculty->save();
 
-        DB::table('faculties')->insert([
+        /* Other Teaching Faculties */
+        $faculty = new Faculty([
             'first_name' => 'Belen',
             'middle_name' => 'M',
             'last_name' => 'Tapado',
@@ -79,7 +85,9 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        DB::table('faculties')->insert([
+        $faculty->save();
+
+        $faculty = new Faculty([
             'first_name' => 'Gemma',
             'middle_name' => 'G',
             'last_name' => 'Acedo',
@@ -92,7 +100,9 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        DB::table('faculties')->insert([
+        $faculty->save();
+
+        $faculty = new Faculty([
             'first_name' => 'Joy',
             'middle_name' => 'V',
             'last_name' => 'Santelices',
@@ -105,7 +115,9 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        DB::table('faculties')->insert([
+        $faculty->save();
+
+        $faculty = new Faculty([
             'first_name' => 'Janette',
             'middle_name' => 'V',
             'last_name' => 'Lucre',
@@ -118,7 +130,9 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
-        DB::table('faculties')->insert([
+        $faculty->save();
+
+        $faculty = new Faculty([
             'first_name' => 'Ma. Antonia',
             'middle_name' => 'E',
             'last_name' => 'Rojas',
@@ -131,10 +145,12 @@ class FacultySeeder extends Seeder
             'updated_at' => now(),
         ]);
 
+        $faculty->save();
+
         /* CEA Default Accounts */
 
         $cea = College::where('acroname', 'CEA')->value('id');
-        DB::table('faculties')->insert([
+        $faculty = new Faculty([
             'first_name' => 'Pedro Jr.',
             'middle_name' => 'R',
             'last_name' => 'Arcilla',
@@ -146,5 +162,7 @@ class FacultySeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+
+        $faculty->save();
     }
 }

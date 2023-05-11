@@ -8,18 +8,23 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
+
 class Faculty extends Model implements Authenticatable
 {
-    use HasFactory;
-    use SoftDeletes;
+    use HasFactory, SoftDeletes;
 
     protected $fillable = [];
     protected $guard = 'faculty';
     protected $table = 'faculties';
 
-    public function research()
+    public function researchAdviser()
     {
         return $this->hasMany(Faculty::class, 'advisers_id');
+    }
+
+    public function researchFaculty()
+    {
+        return $this->hasMany(Faculty::class, 'faculty_in_charge_id');
     }
 
     public function college(): BelongsTo{
@@ -35,6 +40,9 @@ class Faculty extends Model implements Authenticatable
         'updated_at' => 'datetime:M d o',
     ];
 
+    protected $dates = [
+        'session_expires_at',
+    ];
 
     public function getAuthIdentifierName()
     {

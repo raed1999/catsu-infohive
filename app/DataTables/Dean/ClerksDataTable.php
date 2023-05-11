@@ -52,9 +52,9 @@ class ClerksDataTable extends DataTable
     public function query(Faculty $model): QueryBuilder
     {
         return $model
+            ->with(['college'])
             ->where('usertype_id', Role::CLERK)
             ->where('college_id', Auth::user()->college_id)
-            ->with(['college'])
             ->withTrashed()
             ->select('faculties.*');
     }
