@@ -24,7 +24,7 @@ class ResearchController extends Controller
         } else {
             $research = Research::with('adviser:id,first_name,middle_name,last_name')
                 ->with('facultyInCharge:id,first_name,middle_name,last_name')
-                ->with('authors:id,first_name,middle_name,last_name')
+                ->with('authors:id,first_name,middle_name,last_name,research_id')
                 ->find($user->research_id);
             return view('student.research.index', compact('research'));
         }

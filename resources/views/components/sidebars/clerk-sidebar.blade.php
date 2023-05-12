@@ -14,7 +14,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link collapsed" href="{{ route('clerk.manage-research.index') }}">
                     <i class="bi bi-book"></i>
                     <span>Capstone | Thesis</span>
                 </a>

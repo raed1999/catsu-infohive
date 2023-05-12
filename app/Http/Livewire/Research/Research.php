@@ -53,7 +53,19 @@ class Research extends Component
 
     public function selectResearch($id)
     {
-        $this->selectedResearch =  $this->selectedResearch = ModelsResearch::with('authors', 'adviser', 'facultyInCharge')->findOrFail($id);
+        $this->selectedResearch =  $this->selectedResearch = ModelsResearch::select(
+            'research.id',
+            'title',
+            'abstract',
+            'keywords',
+            'advisers_id',
+            'faculty_in_charge_id'
+        )
+            ->with(
+                'authors:id,first_name,middle_name,last_name,research_id',
+                'adviser:id,first_name,middle_name,last_name',
+                'facultyInCharge:id,first_name,middle_name,last_name'
+            )->findOrFail($id);
     }
 
 

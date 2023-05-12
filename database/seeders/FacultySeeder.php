@@ -147,6 +147,27 @@ class FacultySeeder extends Seeder
 
         $faculty->save();
 
+        /* Randomize Faculty */
+
+        for ($i = 0; $i < 100; $i++) {
+
+            $faculty = new Faculty([
+                'first_name' => fake()->firstName(),
+                'middle_name' => fake()->lastName(),
+                'last_name' => fake()->lastName(),
+                'email' => fake()->unique()->email(),
+                'email_verified_at' => now(),
+                'college_id' => $cict,
+                'usertype_id' => Role::FACULTY,
+                'added_by_id' => $cictDean,
+                'created_at' => now(),
+                'updated_at' => now(),
+            ]);
+
+
+            $faculty->save();
+        }
+
         /* CEA Default Accounts */
 
         $cea = College::where('acroname', 'CEA')->value('id');

@@ -5,6 +5,7 @@ use App\Http\Controllers\Dean\DeanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
+use App\Http\Controllers\Clerk\ClerkResearchController;
 use App\Http\Controllers\Research\ResearchController as SearchResearchController;
 use App\Http\Controllers\Student\ResearchController;
 use App\Http\Controllers\Student\StudentController;
@@ -78,10 +79,16 @@ Route::prefix('c')
     ->name('clerk.')
      ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
     ->group(function () {
+
+        /* Managing Students */
         Route::resource('/manage-student', ClerkController::class)->withTrashed();
         Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed()->name('manage-student.restore');
         Route::put('/manage-student/{manage_student}/verify', [ClerkController::class, 'verify'])->withTrashed()->name('manage-student.verify');
         Route::put('/manage-student/{manage_student}/unverifiy', [ClerkController::class, 'unverify'])->withTrashed()->name('manage-student.unverify');
+
+        /* Managing Researches per college */
+        Route::resource('/manage-research',ClerkResearchController::class);
+
     });
 
 /**
