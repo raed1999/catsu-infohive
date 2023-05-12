@@ -3,6 +3,7 @@
 namespace App\Http\Livewire\Research;
 
 use App\Models\Research as ModelsResearch;
+use Illuminate\Support\Facades\DB;
 use Livewire\Component;
 use Livewire\WithPagination;
 
@@ -12,20 +13,16 @@ class Research extends Component
 
     public $search = '';
     protected $researches;
+    public $selectedResearch;
 
     protected $paginationTheme = 'bootstrap';
-
-    public function updatedSearch()
-    {
-        $this->resetPage();
-    }
-
 
     public function render()
     {
 
         $this->researches = ModelsResearch::query()
-            ->with('authors:id,first_name,middle_name,last_name')
+            ->select('research.id', 'title', 'abstract', 'keywords', 'advisers_id', 'faculty_in_charge_id')
+            ->with('authors:id,first_name,middle_name,last_name,research_id')
             ->with('adviser:id,first_name,middle_name,last_name')
             ->with('facultyInCharge:id,first_name,middle_name,last_name')
             ->where('title', 'like', '%' . $this->search . '%')
@@ -47,5 +44,26 @@ class Research extends Component
         return view('livewire.research.research', [
             'researches' => $this->researches,
         ]);
+    }
+
+    public function updatedSearch()
+    {
+        $this->resetPage();
+    }
+
+    public function selectResearch($id)
+    {
+        $this->selectedResearch =  $this->selectedResearch = ModelsResearch::with('authors', 'adviser', 'facultyInCharge')->findOrFail($id);
+    }
+
+
+    public function removeSelectedResearch()
+    {
+        $this->selectedResearch =  null;
+    }
+
+    public function clearSelectedResearch()
+    {
+        $this->selectedResearch =  null;
     }
 }

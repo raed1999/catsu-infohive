@@ -9,4 +9,6 @@
             @livewire('research.research')
         </div>
     </div>
+
+
 </x-layout>

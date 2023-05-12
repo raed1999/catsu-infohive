@@ -17,6 +17,11 @@ class Student extends Model implements Authenticatable
 
     protected $guard = 'student';
 
+    public function research() :BelongsTo
+    {
+        return $this->belongsTo(Research::class);
+    }
+
 
     public function userType(): BelongsTo
     {
@@ -33,7 +38,7 @@ class Student extends Model implements Authenticatable
         return $this->belongsToThrough(College::class, Program::class);
     }
 
-   /**
+    /**
      * Get the indexable data array for the model.
      *
      * @return array<string, mixed>
@@ -85,5 +90,4 @@ class Student extends Model implements Authenticatable
     {
         return 'remember_token'; // or any other remember token field name
     }
-
 }
