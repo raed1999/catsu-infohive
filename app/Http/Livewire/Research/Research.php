@@ -19,26 +19,32 @@ class Research extends Component
 
     public function render()
     {
-
         $this->researches = ModelsResearch::query()
-            ->select('research.id', 'title', 'abstract', 'keywords', 'advisers_id', 'faculty_in_charge_id')
+            ->select('research.id', 'title', 'abstract', 'keywords', 'advisers_id', 'faculty_in_charge_id', 'research.confirmed_by_id')
             ->with('authors:id,first_name,middle_name,last_name,research_id')
             ->with('adviser:id,first_name,middle_name,last_name')
             ->with('facultyInCharge:id,first_name,middle_name,last_name')
-            ->where('title', 'like', '%' . $this->search . '%')
-            ->orWhere('abstract', 'like', '%' . $this->search . '%')
-            ->orWhere('keywords', 'like', '%' . $this->search . '%')
-            ->orWhere('year', 'like', '%' . $this->search . '%')
-            ->orWhereHas('authors', function ($query) {
-                $query->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ['%' . $this->search . '%']);
-            })
-            ->orWhereHas('adviser', function ($query) {
-                $query->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ['%' . $this->search . '%']);
-            })
-            ->orWhereHas('facultyInCharge', function ($query) {
-                $query->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", ['%' . $this->search . '%']);
+            ->where(function ($query) {
+                $query->whereNotNull('research.confirmed_by_id')
+                    ->where(function ($query) {
+                        $search = '%' . $this->search . '%';
+                        $query->where('title', 'like', $search)
+                            ->orWhere('abstract', 'like', $search)
+                            ->orWhere('keywords', 'like', $search)
+                            ->orWhere('year', 'like', $search)
+                            ->orWhereHas('authors', function ($query) use ($search) {
+                                $query->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", [$search]);
+                            })
+                            ->orWhereHas('adviser', function ($query) use ($search) {
+                                $query->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", [$search]);
+                            })
+                            ->orWhereHas('facultyInCharge', function ($query) use ($search) {
+                                $query->whereRaw("CONCAT(first_name, ' ', middle_name, ' ', last_name) LIKE ?", [$search]);
+                            });
+                    });
             })
             ->paginate(5);
+
 
 
         return view('livewire.research.research', [

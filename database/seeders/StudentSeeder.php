@@ -24,7 +24,7 @@ class StudentSeeder extends Seeder
                 'last_name' => fake()->lastName(),
                 'email' => fake()->unique()->email(),
                 'student_id' => fake()->unique()->numerify('20##-#####'),
-                'research_id' => fake()->numberBetween(1,2000,4),
+                'research_id' => fake()->numberBetween(16,2000,4),
                 'program_id' => 3,
                 'usertype_id' => 5,
                 ]);

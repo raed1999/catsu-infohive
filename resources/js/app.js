@@ -5,5 +5,4 @@ import PerfectScrollbar from "perfect-scrollbar";
 Tags.init();
 
 new PerfectScrollbar("#main");
-
 const ps = new PerfectScrollbar("#main");

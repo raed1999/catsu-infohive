@@ -38,20 +38,6 @@ class Student extends Model implements Authenticatable
         return $this->belongsToThrough(College::class, Program::class);
     }
 
-    /**
-     * Get the indexable data array for the model.
-     *
-     * @return array<string, mixed>
-     */
-    public function toSearchableArray(): array
-    {
-        $array = $this->toArray();
-
-        // Customize the data array...
-
-        return $array;
-    }
-
     protected $casts = [
         'created_at' => 'datetime:M d o',
         'updated_at' => 'datetime:M d o',

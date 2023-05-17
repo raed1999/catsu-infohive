@@ -8,7 +8,6 @@ use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-
 class Faculty extends Model implements Authenticatable
 {
     use HasFactory, SoftDeletes;
@@ -16,6 +15,8 @@ class Faculty extends Model implements Authenticatable
     protected $fillable = [];
     protected $guard = 'faculty';
     protected $table = 'faculties';
+
+
 
     public function researchAdviser()
     {
@@ -27,12 +28,14 @@ class Faculty extends Model implements Authenticatable
         return $this->hasMany(Faculty::class, 'faculty_in_charge_id');
     }
 
-    public function college(): BelongsTo{
-        return $this->belongsTo(College::class,'college_id','id');
+    public function college(): BelongsTo
+    {
+        return $this->belongsTo(College::class, 'college_id', 'id');
     }
 
-    public function userType(): BelongsTo {
-        return $this->belongsTo(UserType::class,'usertype_id','id');
+    public function userType(): BelongsTo
+    {
+        return $this->belongsTo(UserType::class, 'usertype_id', 'id');
     }
 
     protected $casts = [
@@ -73,6 +76,4 @@ class Faculty extends Model implements Authenticatable
     {
         return 'remember_token';
     }
-
-
 }

@@ -12,6 +12,16 @@ class Research extends Model
 
     protected $fillable = [];
 
+    public function scopeSearch($query, $searchTerm)
+    {
+        return $query->where('title', 'like', '%' . $searchTerm . '%')
+            ->orWhere('year', 'like', '%' . $searchTerm . '%')
+            ->orWhereHas('authors', function ($query) use ($searchTerm) {
+                $query->where('first_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('middle_name', 'like', '%' . $searchTerm . '%')
+                    ->orWhere('last_name', 'like', '%' . $searchTerm . '%');
+            });
+    }
 
     public function authors()
     {
@@ -30,6 +40,7 @@ class Research extends Model
 
     protected $casts = [
         'keywords' => 'array',
+        'created_at' => 'datetime:M d o',
+        'updated_at' => 'datetime:M d o',
     ];
-
 }
