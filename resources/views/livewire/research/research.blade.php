@@ -65,20 +65,32 @@
         </div>
     @else()
         <div class="card">
-            <div class="row g-3 p-3 justify-content-center align-items-center">
-                <div class="col-12">
-                    <input wire:model.debounce.500ms="search" type="text" class="form-control"
+            <div class="row g-3 px-3 pt-3 pt-2 justify-content-center align-items-center">
+                <div class="col-8">
+                    <input wire:model="search" type="text" class="form-control"
                         aria-label="Text input with dropdown button" placeholder="Search...">
                 </div>
+                <div class="col-4">
+                    <select wire:model="filter" class="form-select">
+                        <option value="all">All</option>
+                        <option value="title">Title</option>
+                        <option value="year">Year</option>
+                        <option value="keyword">Keyword</option>
+                        <option value="author">Author</option>
+                        <option value="adviser">Adviser</option>
+                        <option value="facultyInCharge">Faculty In Charge</option>
+                    </select>
+                </div>
+            </div>
+            <div class="row px-3 pb-3 pt-2 justify-content-center align-items-center">
                 <div class="col-12">
                     <small>
-                        @if ($researches->firstItem())
+                        @isset($researches)
                             Showing {{ $researches->firstItem() }} to {{ $researches->lastItem() }} of
                             {{ $researches->total() }} results
                         @else
                             No result found.
-                        @endif
-
+                            @endisset ($researches)
                     </small>
                 </div>
             </div>
@@ -87,9 +99,9 @@
         {{--       @dd($researches) --}}
 
         @forelse ($researches as $research)
-            <div class="card p-5" wire:loading.class="opacity-50" wire:click="selectResearch( {{ $research->id }} )">
+            <div  class="card p-5">
 
-                <div class="row">
+                <div class="row"   wire:click="selectResearch( {{ $research->id }} )"  style="cursor:pointer;">
                     <h4 class="">
                         <p href="#" class="mb-1 nav-link fw-bolder ">
                             {{ $research->title }}, {{ $research->year }}
@@ -143,7 +155,7 @@
                                     <span>
                                         <i class="ri-book-fill"></i>
                                         {{ $research->facultyInCharge->first_name }}
-                                        {{ $research->facultyInCharge->middle_name ?? '' }}
+                                        {{ $research->facultyInCharge->middle_name[0] . '. ' ?? '' }}
                                         {{ $research->facultyInCharge->last_name }}
                                     </span>
                                 @endif
