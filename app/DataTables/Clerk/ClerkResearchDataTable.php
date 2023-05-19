@@ -138,7 +138,7 @@ class ClerkResearchDataTable extends DataTable
             Column::make(['title' => 'Faculty In Charge', 'data' => 'facultyInCharge'])
                 ->addClass('')
                 ->orderable(false),
-            Column::make('created_at','Created At')
+            Column::make(['title' => 'Created At', 'data' => 'created_at'])
                 ->addClass('')
                 ->orderable(true),
             Column::computed('action', 'Action')

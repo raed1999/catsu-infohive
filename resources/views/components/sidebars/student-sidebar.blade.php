@@ -12,12 +12,6 @@
                     <span>Dashboard</span>
                 </a>
             </li>
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('student.research.index') }}">
-                    <i class="bi bi-book"></i>
-                    <span>Capstone | Thesis</span>
-                </a>
-            </li>
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="{{ route('research.search.index') }}">
@@ -25,6 +19,16 @@
                     <span>Search Capstone | Thesis</span>
                 </a>
             </li>
+
+            <li class="nav-heading">Manage</li>
+
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="{{ route('student.research.index') }}">
+                    <i class="bi bi-book"></i>
+                    <span>Capstone | Thesis</span>
+                </a>
+            </li>
+
         </ul>
 
     </aside><!-- End Sidebar-->

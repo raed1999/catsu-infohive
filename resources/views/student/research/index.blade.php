@@ -30,15 +30,26 @@
         <div class="card">
             {{--  <div class="card-header">Header</div> --}}
             <div class="card-body p-5">
+
+                @if ($research->confirmed_by_id)
+                    <span class="badge bg-success text-white" data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Research that are confirmed are not editable'>Confirmed</span>
+                @else
+                    <span class="badge bg-warning text-white" data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Research that are confirmed are not editable'>Not confirmed</span>
+                @endif
+
                 <div class="row align-items-center">
                     <div class="col mb-3">
-                        <h4 class="card-title py-2 mb-0 fs-2">{{ $research->title . ', ' . $research->year }}</h4>
+                        <h4 class="card-title py-2 mb-0 fs-2">
+                            {{ $research->title . ', ' . $research->year }}
+                        </h4>
                     </div>
-                    <div class="col-auto mb-3">
-                        <a href="{{ route('student.research.edit', $research->id) }}"
-                            class="btn btn-sm btn-primary">Edit
-                            Capstone / Thesis</a>
-                    </div>
+                    @if (!$research->confirmed_by_id)
+                        <div class="col-auto mb-3">
+                            <a href="{{ route('student.research.edit', $research->id) }}"
+                                class="btn btn-sm btn-primary">Edit
+                                Capstone / Thesis</a>
+                        </div>
+                    @endif
                 </div>
 
                 <div class="mb-3">
