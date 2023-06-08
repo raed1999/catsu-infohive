@@ -1,10 +1,10 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Manage Clerks
+        CatSU InfoHive | Manage Faculty
     </x-slot:title>
 
-    <h3 class="mb-3">Manage Clerks</h3>
+    <h3 class="mb-3">Manage Faculty</h3>
 
     <div class="row justify-content-center">
         <div class="col-6">
@@ -12,7 +12,7 @@
                 <div class="card-body">
                     <h5 class="card-title">Input Information</h5>
 
-                    <form class="row g-3" method="POST" action="{{ route('dean.manage-clerk.store') }}" novalidate="">
+                    <form class="row g-3" method="POST" action="{{ route('dean.manage-faculty.store') }}" novalidate="">
                         @csrf
                         <div class="col-md-12">
                             <label for="firstName" class="form-label">First name</label>

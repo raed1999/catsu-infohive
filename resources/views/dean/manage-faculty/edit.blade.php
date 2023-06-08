@@ -1,10 +1,10 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Manage Clerks
+        CatSU InfoHive | Manage Faculty
     </x-slot:title>
 
-    <h3 class="mb-3">Manage Clerks</h3>
+    <h3 class="mb-3">Manage Faculty</h3>
 
     <div class="row justify-content-center">
         <div class="col-6">
@@ -13,7 +13,7 @@
                     <h5 class="card-title">Edit Information</h5>
 
                     <form class="row g-3" method="POST"
-                        action="{{ route('dean.manage-clerk.update', $faculty->id) }}" novalidate="">
+                        action="{{ route('dean.manage-faculty.update', $faculty->id) }}" novalidate="">
                         @csrf
                         @method('PATCH')
                         <div class="col-md-12">

@@ -1,12 +1,15 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Manage Clerks
+        CatSU InfoHive | Manage Faculty
     </x-slot:title>
 
     <div class="row mb-2 justify-content-between">
         <div class="col">
             <h3>Manage Faculty</h3>
+        </div>
+        <div class="col-auto ms-auto">
+            <a href="{{ route('dean.manage-faculty.create') }}" class="btn btn-primary">Add Faculty</a>
         </div>
     </div>
 

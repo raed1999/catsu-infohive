@@ -1,7 +1,7 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Manage Clerks
+        CatSU InfoHive | Manage Faculty
     </x-slot:title>
 
     <div class="row mb-2 justify-content-between">
