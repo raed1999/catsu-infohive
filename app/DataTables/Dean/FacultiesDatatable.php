@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ClerksDataTable extends DataTable
+class FacultiesDatatable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -35,10 +35,8 @@ class ClerksDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                $viewButton = "<a href='" . route('dean.manage-clerk.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
-                $editButton = "<a href='" . route('dean.manage-clerk.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>";
-
-                return  $viewButton . $editButton;
+                $viewButton = "<a href='" . route('dean.manage-faculty.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
+                return  $viewButton ;
             })
             ->orderColumn('status', '-deleted_at $1')
             ->addIndexColumn()
@@ -53,7 +51,7 @@ class ClerksDataTable extends DataTable
     {
         return $model
             ->with(['college'])
-            ->where('usertype_id', Role::CLERK)
+            ->where('usertype_id', Role::FACULTY)
             ->where('college_id', Auth::user()->college_id)
             ->withTrashed()
             ->select('faculties.*');
@@ -66,7 +64,7 @@ class ClerksDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('clerks-table')
+            ->setTableId('faculties-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             /*   ->dom('Bfrtip') */
@@ -97,8 +95,6 @@ class ClerksDataTable extends DataTable
             Column::make('first_name'),
             Column::make('middle_name'),
             Column::make('last_name'),
-            Column::make(['title' => 'College', 'data' => 'college.acroname'])
-                ->addClass('text-center'),
             Column::make('created_at')
                 ->addClass('text-center'),
             Column::make('status')
@@ -117,6 +113,6 @@ class ClerksDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'InfoHive_Clerks_Information' . date('YmdHis');
+        return 'InfoHive_Faculties_Information' . date('YmdHis');
     }
 }

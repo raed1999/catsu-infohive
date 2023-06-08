@@ -51,14 +51,14 @@
       </li> --}}
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="{{ route('dean.manage-clerk.index') }}">
+        <a class="nav-link {{ Request::routeIs('dean.manage-clerk.*') ? '' : 'collapsed' }}" href="{{ route('dean.manage-clerk.index') }}">
           <i class="bi bi-person"></i>
           <span>Clerk</span>
         </a>
       </li>
 
       <li class="nav-item">
-        <a class="nav-link collapsed" href="#">
+        <a class="nav-link {{ Request::routeIs('dean.manage-faculty.*') ? '' : 'collapsed' }}" href="{{  route('dean.manage-faculty.index') }}">
           <i class="bi bi-person"></i>
           <span>Faculty</span>
         </a>

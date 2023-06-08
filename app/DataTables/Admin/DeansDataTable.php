@@ -95,8 +95,6 @@ class DeansDataTable extends DataTable
                 ->addClass('text-center'),
             Column::make('created_at')
                 ->addClass('text-center'),
-            Column::make('updated_at')
-                ->addClass('text-center'),
             Column::make('status')
                 ->searchable(false)
                 ->width('auto')

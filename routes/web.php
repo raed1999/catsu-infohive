@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
 use App\Http\Controllers\Clerk\ClerkResearchController;
+use App\Http\Controllers\Dean\FacultyController;
 use App\Http\Controllers\Research\ResearchController as SearchResearchController;
 use App\Http\Controllers\Student\ResearchController;
 use App\Http\Controllers\Student\StudentController;
@@ -70,6 +71,7 @@ Route::prefix('d')
     ->group(function () {
         Route::resource('/manage-clerk', DeanController::class)->withTrashed(['show']);
         Route::delete('/manage-clerk/{manage_clerk}/restore', [DeanController::class, 'restore'])->withTrashed(['show'])->name('manage-clerk.restore');
+        Route::resource('/manage-faculty', FacultyController::class)->withTrashed(['show']);
     });
 
 /**
