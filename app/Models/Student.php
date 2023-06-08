@@ -22,6 +22,10 @@ class Student extends Model implements Authenticatable
         return $this->belongsTo(Research::class);
     }
 
+    public function confirmedBy()
+    {
+        return $this->belongsTo(Faculty::class, 'confirmed_by_id');
+    }
 
     public function userType(): BelongsTo
     {

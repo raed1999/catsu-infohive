@@ -12,13 +12,13 @@
             @if ($research->confirmed_by_id)
                 <a href="{{ route('clerk.manage-research.update', $research->id) }}" data-bs-toggle='tooltip'
                     data-bs-placement='bottom' data-bs-original-title='Click to unconfirm'
-                    class="btn btn-sm btn-success show-undo-confirmation ">
+                    class="btn btn-sm btn-success show-undo-confirmation fw-bolder text-uppercase">
                     Confirmed
                 </a>
             @else
                 <a href="{{ route('clerk.manage-research.update', $research->id) }}" data-bs-toggle='tooltip'
                     data-bs-placement='bottom' data-bs-original-title='Click to confirm'
-                    class="btn btn-sm btn-warning show-confirmation">
+                    class="btn btn-sm btn-warning show-confirmation fw-bolder text-uppercase">
                     Not confirmed
                 </a>
             @endif

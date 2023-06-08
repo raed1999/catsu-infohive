@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Clerk;
+namespace App\DataTables\Dean;
 
 use App\Constants\Role;
 use App\Models\Student;
@@ -43,7 +43,7 @@ class StudentsDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                $viewButton = "<a href='" . route('clerk.manage-student.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
+                $viewButton = "<a href='" . route('dean.manage-student.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
                 /*   $editButton = "<a href='" . route('clerk.manage-student.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>"; */
 
                 return  $viewButton /* . $editButton */;

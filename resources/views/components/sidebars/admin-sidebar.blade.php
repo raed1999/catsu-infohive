@@ -27,6 +27,9 @@
         </a>
     </li>
 
+    <li class="nav-heading">Manage</li>
+
+
       <li class="nav-item">
         <a class="nav-link collapsed" href="#">
           <i class="bi bi-building"></i>

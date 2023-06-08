@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Clerk;
+namespace App\DataTables\Dean;
 
 use App\Constants\Role;
 use App\Models\Research;
@@ -13,7 +13,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class ClerkResearchDataTable extends DataTable
+class DeanResearchDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -38,22 +38,16 @@ class ClerkResearchDataTable extends DataTable
             ->addColumn('confirmedBy', function ($query) {
 
                 if (!$query->confirmedBy) {
-                    return "<span class='badge bg-warning rounded-pill text-dark '>Not confirmed</span>";
+                    return "<span class='badge bg-warning rounded-pill text-dark'>Not confirmed</span>";
                 }
 
                 return "<span class='badge bg-success rounded-pill'>" . $query->confirmedBy->first_name . ' ' . $query->confirmedBy->last_name . "</span>";
             })
             ->addColumn('action', function ($query) {
 
-                $view = "<a href='" . route('clerk.manage-research.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
+                $view = "<a href='" . route('dean.manage-research.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
 
-                if ($query->confirmed_by_id) {
-                    $status = "<a href='" . route('clerk.manage-research.update', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Confirmed' class='btn btn-sm btn-success text-light me-2 show-undo-confirmation fw-bolder'><i class='ri-check-line'></i></a>";
-                } else {
-                    $status = "<a href='" . route('clerk.manage-research.update', $query->id) . "' data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Not confirmed. Click to confirm' class='btn btn-sm btn-warning show-confirmation fw-bolder text-dark me-2'  ><i class='ri-close-line' data-confirm-delete='true'></i></a>";
-                };
-
-                return $status . $view;
+                return  $view;
             })->filterColumn('authors', function ($query, $keyword) {
                 $query->whereHas('authors', function ($q) use ($keyword) {
                     $q->where('first_name', 'LIKE', '%' . $keyword . '%')
@@ -142,6 +136,9 @@ class ClerkResearchDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->addClass('text-center'),
+            /*  Column::checkbox('')
+                ->content('<input type="checkbox" />')
+                ->addClass('text-center'), */
             Column::make('title', 'Title')
                 ->searchable()
                 ->orderable(true)
