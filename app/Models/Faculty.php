@@ -17,7 +17,6 @@ class Faculty extends Model implements Authenticatable
     protected $table = 'faculties';
 
 
-
     public function researchAdviser()
     {
         return $this->hasMany(Faculty::class, 'advisers_id');

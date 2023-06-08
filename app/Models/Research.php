@@ -33,6 +33,11 @@ class Research extends Model
         return $this->belongsTo(Faculty::class, 'advisers_id');
     }
 
+    public function confirmedBy()
+    {
+        return $this->belongsTo(Faculty::class, 'confirmed_by_id');
+    }
+
     public function facultyInCharge()
     {
         return $this->belongsTo(Faculty::class, 'faculty_in_charge_id');

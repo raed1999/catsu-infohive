@@ -32,7 +32,6 @@
     <link
         href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.css"
         rel="stylesheet" />
-
     @vite(['resources/css/app.css'])
 
     <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
@@ -59,8 +58,8 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="{{ asset('assets/img/catsu.png') }}" alt="">
-                <span class="d-none d-lg-block">CatSu InfoHive</span>
+                <img src="{{ asset('assets/img/catsu.png') }}" alt="" {{-- style="width:50px"; height="30px !important" --}}>
+                <span class="d-none d-lg-block font-segoe">CatSu InfoHive</span>
             </a>
             @auth
                 <i class="bi bi-list toggle-sidebar-btn"></i>
@@ -212,10 +211,10 @@
 
     @include('sweetalert::alert', ['cdn' => 'https://cdn.jsdelivr.net/npm/sweetalert2@9'])
     <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11.0.19/dist/sweetalert2.min.js"></script>
+    @stack('scripts')
 
 
     @vite(['resources/js/app.js']);
-    @stack('scripts')
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>

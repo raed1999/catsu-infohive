@@ -14,7 +14,7 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('research.search.index') }}">
+                <a class="nav-link {{ Request::routeIs('research.search.index') ? '' : 'collapsed' }}" href="{{ route('research.search.index') }}">
                     <i class="bi bi-search"></i>
                     <span>Search Capstone | Thesis</span>
                 </a>
@@ -22,15 +22,15 @@
 
             <li class="nav-heading">Manage</li>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('clerk.manage-research.index') }}">
+            <li class="nav-item ">
+                <a class="nav-link {{ Request::routeIs('clerk.manage-research.index') ? '' : 'collapsed' }}" href="{{ route('clerk.manage-research.index') }}">
                     <i class="bi bi-book"></i>
                     <span>Capstone | Thesis</span>
                 </a>
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="{{ route('clerk.manage-student.index') }}">
+                <a class="nav-link {{ Request::routeIs('clerk.manage-student.index') ? '' : 'collapsed' }}" href="{{ route('clerk.manage-student.index') }}">
                     <i class="bi bi-person"></i>
                     <span>Student</span>
                 </a>

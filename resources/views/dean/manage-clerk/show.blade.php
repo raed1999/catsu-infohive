@@ -102,13 +102,13 @@
 
                                                     @if ($faculty->deleted_at)
                                                     <button class="btn btn-sm btn-danger" data-bs-toggle='tooltip'
-                                                    data-bs-placement='top'
+                                                    data-bs-placement='bottom'
                                                     data-bs-original-title='Click to enable'>Disabled</button>
                                                     @endif
 
                                                     @if (!$faculty->deleted_at)
                                                         <button class="btn btn-sm btn-primary" data-bs-toggle='tooltip'
-                                                            data-bs-placement='top'
+                                                            data-bs-placement='bottom'
                                                             data-bs-original-title='Click to disable'>Enabled</button>
                                                     @endif
                                                 </form>

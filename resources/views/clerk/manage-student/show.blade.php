@@ -110,13 +110,13 @@
                                                     {{-- Soft Delete --}}
                                                     @if ($student->deleted_at)
                                                         <button class="btn btn-sm btn-danger" data-bs-toggle='tooltip'
-                                                            data-bs-placement='top'
+                                                            data-bs-placement='bottom'
                                                             data-bs-original-title='Click to enable'>Disabled</button>
                                                     @endif
 
                                                     @if (!$student->deleted_at)
                                                         <button class="btn btn-sm btn-primary" data-bs-toggle='tooltip'
-                                                            data-bs-placement='top'
+                                                            data-bs-placement='bottom'
                                                             data-bs-original-title='Click to disable'>Enabled</button>
                                                     @endif
 
@@ -138,13 +138,13 @@
                                                     {{-- Verification --}}
                                                     @if (!$student->email_verified_at)
                                                         <button class="btn btn-sm btn-warning" data-bs-toggle='tooltip'
-                                                            data-bs-placement='top'
+                                                            data-bs-placement='bottom'
                                                             data-bs-original-title='Click to verify'>Unverified</button>
                                                     @endif
 
                                                     @if ($student->email_verified_at)
                                                         <button class="btn btn-sm btn-success" data-bs-toggle='tooltip'
-                                                            data-bs-placement='top'
+                                                            data-bs-placement='bottom'
                                                             data-bs-original-title='Click to unverify'>Verified</button>
                                                     @endif
 

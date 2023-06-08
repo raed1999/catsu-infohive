@@ -30,18 +30,29 @@ class ClerkResearchDataTable extends DataTable
                 return view('livewire.research.authors', ['authors' => $query->authors]);
             })
             ->addColumn('adviser', function ($query) {
-                return $query->adviser->first_name . ' ' . $query->adviser->middle_name[0] . ' ' . $query->adviser->last_name;
+                return $query->adviser->first_name . ' ' . ($query->adviser->middle_name[0] ?? '') . '. ' . $query->adviser->last_name;
             })
             ->addColumn('facultyInCharge', function ($query) {
-                return $query->facultyInCharge->first_name . ' ' . $query->facultyInCharge->middle_name[0] . ' ' . $query->facultyInCharge->last_name;
+                return $query->facultyInCharge->first_name . ' ' . ($query->facultyInCharge->middle_name[0] ?? '') . '. ' . $query->facultyInCharge->last_name;
+            })
+            ->addColumn('confirmedBy', function ($query) {
+
+                if (!$query->confirmedBy) {
+                    return "<span class='badge bg-secondary rounded-pill text-gray'>Not confirmed</span>";
+                }
+
+                return $query->confirmedBy->first_name . ' ' . ($query->confirmedBy->middle_name[0] ?? '') . '. ' . $query->confirmedBy->last_name;
             })
             ->addColumn('action', function ($query) {
-                $view = "<a href='" . "'  data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
+
+                $view = "<a href='" . route('clerk.manage-research.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
+
                 if ($query->confirmed_by_id) {
-                    $status = "<a href='" . route('clerk.manage-research.update', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Confirmed' class='btn btn-sm btn-success text-light me-2 show-undo-confirmation'><i class='ri-check-line'></i></a>";
+                    $status = "<a href='" . route('clerk.manage-research.update', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Confirmed' class='btn btn-sm btn-success text-light me-2 show-undo-confirmation'><i class='ri-check-line'></i></a>";
                 } else {
-                    $status = "<a href='" . route('clerk.manage-research.update', $query->id) . "' data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Not confirmed. Click to confirm' class='btn btn-sm btn-danger show-confirmation text-light me-2'  ><i class='ri-close-line' data-confirm-delete='true'></i></a>";
+                    $status = "<a href='" . route('clerk.manage-research.update', $query->id) . "' data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Not confirmed. Click to confirm' class='btn btn-sm btn-danger show-confirmation text-light me-2'  ><i class='ri-close-line' data-confirm-delete='true'></i></a>";
                 };
+
                 return $status . $view;
             })->filterColumn('authors', function ($query, $keyword) {
                 $query->whereHas('authors', function ($q) use ($keyword) {
@@ -64,9 +75,16 @@ class ClerkResearchDataTable extends DataTable
                         ->orWhere('last_name', 'LIKE', '%' . $keyword . '%');
                 });
             })
-            ->orderColumn('action', '-confirmed_by_id $1')
+            ->filterColumn('confirmedBy', function ($query, $keyword) {
+                $query->whereHas('confirmedBy', function ($q) use ($keyword) {
+                    $q->where('first_name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('middle_name', 'LIKE', '%' . $keyword . '%')
+                        ->orWhere('last_name', 'LIKE', '%' . $keyword . '%');
+                });
+            })
+            ->orderColumn('confirmedBy', '-confirmed_by_id $1')
             ->addIndexColumn()
-            ->rawColumns(['action', 'authors'])
+            ->rawColumns(['action', 'authors', 'confirmedBy'])
             ->setRowId('id');
     }
 
@@ -76,7 +94,7 @@ class ClerkResearchDataTable extends DataTable
     public function query(Research $model): QueryBuilder
     {
         return $model
-            ->with(['authors', 'adviser', 'facultyInCharge'])
+            ->with(['authors', 'adviser', 'confirmedBy', 'facultyInCharge'])
             ->whereHas('authors.program.college', function ($query) {
                 $query->where('id', Auth::user()->college_id);
             })
@@ -107,9 +125,10 @@ class ClerkResearchDataTable extends DataTable
                 /*  Button::make('reload') */
             ])->parameters([
                 'order' => [
-                    [1,'asc'],
-                    [2,'desc']
-                ]
+                    [1, 'asc'],
+                    [2, 'desc']
+                ],
+                'stateSave' => 'true'
             ]);
     }
 
@@ -123,11 +142,14 @@ class ClerkResearchDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->addClass('text-center'),
-            Column::make('title','Title')
+            /*  Column::checkbox('')
+                ->content('<input type="checkbox" />')
+                ->addClass('text-center'), */
+            Column::make('title', 'Title')
                 ->searchable()
                 ->orderable(true)
                 ->addClass(''),
-            Column::make('year','Year')
+            Column::make('year', 'Year')
                 ->addClass(''),
             Column::make(['title' => 'Authors', 'data' => 'authors'])
                 ->addClass('')
@@ -141,14 +163,12 @@ class ClerkResearchDataTable extends DataTable
             Column::make(['title' => 'Created At', 'data' => 'created_at'])
                 ->addClass('')
                 ->orderable(true),
+            Column::make(['title' => 'Confirmed By', 'data' => 'confirmedBy'])
+                ->addClass('')
+                ->orderable(true),
             Column::computed('action', 'Action')
                 ->addClass('text-center')
                 ->orderable(),
-            /*       Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(100)
-                ->addClass('text-center'), */
         ];
     }
 

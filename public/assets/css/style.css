@@ -12,6 +12,8 @@
     scroll-behavior: smooth;
 }
 
+@import url('https://fonts.googleapis.com/css2?family=Roboto:ital,wght@0,300;0,400;0,500;1,400;1,500&display=swap');
+
 body {
     font-family: "Open Sans", sans-serif;
     background: #f6f9ff;
@@ -35,6 +37,7 @@ h4,
 h5,
 h6 {
     font-family: "Nunito", sans-serif;
+  /* font-family: 'Roboto', sans-serif; */
 }
 
 /*--------------------------------------------------------------
@@ -384,7 +387,7 @@ h6 {
 }
 
 .logo img {
-    max-height: 26px;
+    max-height: 45px;
     margin-right: 6px;
 }
 
@@ -1269,3 +1272,7 @@ h6 {
     line-height: 2 !important;
 }
 
+
+.font-segoe{
+    font-family: "Segoe UI", Arial, sans-serif;
+}

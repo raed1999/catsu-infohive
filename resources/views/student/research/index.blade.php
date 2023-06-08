@@ -32,9 +32,9 @@
             <div class="card-body p-5">
 
                 @if ($research->confirmed_by_id)
-                    <span class="badge bg-success text-white" data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Research that are confirmed are not editable'>Confirmed</span>
+                    <span class="badge bg-success text-white" data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Research that are confirmed are not editable'>Confirmed</span>
                 @else
-                    <span class="badge bg-warning text-white" data-bs-toggle='tooltip' data-bs-placement='top' data-bs-original-title='Research that are confirmed are not editable'>Not confirmed</span>
+                    <span class="badge bg-warning text-white" data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Research that are confirmed are not editable'>Not confirmed</span>
                 @endif
 
                 <div class="row align-items-center">

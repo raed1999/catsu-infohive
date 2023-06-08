@@ -41,7 +41,15 @@ class ClerkResearchController extends Controller
      */
     public function show(string $id)
     {
-        //
+        $research = Research::select('research.id', 'title', 'year', 'abstract', 'keywords', 'advisers_id', 'faculty_in_charge_id', 'research.confirmed_by_id')
+            ->with('authors:id,first_name,middle_name,last_name,research_id')
+            ->with('adviser:id,first_name,middle_name,last_name')
+            ->with('facultyInCharge:id,first_name,middle_name,last_name')
+            ->with('confirmedBy:id,first_name,middle_name,last_name')
+            ->find($id);
+
+/*             dd($research);
+ */        return view('clerk.manage-research.show', compact('research'));
     }
 
     /**
@@ -71,8 +79,6 @@ class ClerkResearchController extends Controller
             $research->save();
             return response()->json(['message' => 'Confirmation undo successfully']);
         }
-
-
     }
 
     /**
