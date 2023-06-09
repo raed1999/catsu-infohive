@@ -31,7 +31,8 @@
             </li>
 
             <li class="nav-item">
-                <a class="nav-link collapsed" href="#">
+                <a class="nav-link {{ Request::routeIs('dean.manage-program.*') ? '' : 'collapsed' }}"
+                    href="{{ route('dean.manage-program.index') }}">
                     <i class="bi bi-building"></i>
                     <span>Program</span>
                 </a>

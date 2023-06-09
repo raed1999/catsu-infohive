@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('programs', function (Blueprint $table) {
             $table->id();
-            $table->string('acroname');
+            $table->string('acroname')->unique();
             $table->string('name');
             $table->text('about')->nullable();
             $table->foreignId('college_id')->constrained('colleges');
