@@ -6,6 +6,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
 use App\Http\Controllers\Clerk\ClerkResearchController;
+use App\Http\Controllers\Dean\DeanDashboardController;
 use App\Http\Controllers\Dean\DeanProgramController;
 use App\Http\Controllers\Dean\DeanResearchController;
 use App\Http\Controllers\Dean\FacultyController;
@@ -78,6 +79,7 @@ Route::prefix('d')
         Route::resource('/manage-student', DeanStudentController::class)->withTrashed(['show']);
         Route::resource('/manage-research', DeanResearchController::class);
         Route::resource('/manage-program', DeanProgramController::class);
+        Route::resource('/manage-dashboard', DeanDashboardController::class);
     });
 
 /**

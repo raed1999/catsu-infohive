@@ -4,9 +4,18 @@
         CatSU InfoHive | Manage Clerks
     </x-slot:title>
 
-    <div class="row mb-2 justify-content-between">
+    <div class="row justify-content-between">
         <div class="col">
-            <h3>Profile</h3>
+            <div class="pagetitle">
+                <h1>Manage Clerk</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Clerk</li>
+                        <li class="breadcrumb-item active">Clerk Profile</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
 

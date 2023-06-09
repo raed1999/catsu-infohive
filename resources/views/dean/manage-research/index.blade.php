@@ -4,11 +4,17 @@
         CatSU InfoHive | Manage Research
     </x-slot:title>
 
-    <div class="row mb-2 justify-content-center">
-        <div class="col">
-            <h3>Manage Research</h3>
-        </div>
+    <div class="pagetitle">
+        <h1>Manage Research</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item">Manage Research</li>
+                <li class="breadcrumb-item active">Overview</li>
+            </ol>
+        </nav>
     </div>
+
     <div class="row">
         <div class="col">
             <div style="width:100% !important" class="card w-100">

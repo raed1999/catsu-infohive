@@ -4,16 +4,25 @@
         CatSU InfoHive | Manage Research
     </x-slot:title>
 
+    <div class="pagetitle">
+        <h1>Manage Research</h1>
+        <nav>
+            <ol class="breadcrumb">
+                <li class="breadcrumb-item"><a href="">Home</a></li>
+                <li class="breadcrumb-item">Manage Research</li>
+                <li class="breadcrumb-item active">Research Details</li>
+            </ol>
+        </nav>
+    </div>
 
     <div class="card">
-        {{--  <div class="card-header">Header</div> --}}
         <div class="card-body p-5">
-
             @if ($research->confirmed_by_id)
                 <span class="badge rounded-pill bg-success text-uppercase p-2" data-bs-toggle='tooltip'
-                data-bs-placement='bottom' data-bs-original-title='Confirmed by {{ $research->confirmedBy->first_name . ' '. $research->confirmedBy->last_name  }}'>Confirmed</span>
+                    data-bs-placement='bottom'
+                    data-bs-original-title='Confirmed by {{ $research->confirmedBy->first_name . ' ' . $research->confirmedBy->last_name }}'>Confirmed</span>
             @else
-            <span class="badge rounded-pill bg-warning  text-uppercase p-2 text-dark">Not Confirmed</span>
+                <span class="badge rounded-pill bg-warning  text-uppercase p-2 text-dark">Not Confirmed</span>
                 </a>
             @endif
 

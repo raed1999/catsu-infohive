@@ -4,7 +4,20 @@
         CatSU InfoHive | Manage Programs
     </x-slot:title>
 
-    <h3 class="mb-3">Manage Programs</h3>
+    <div class="row justify-content-between">
+        <div class="col">
+            <div class="pagetitle">
+                <h1>Manage Program</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Program</li>
+                        <li class="breadcrumb-item active">Add Program</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
     <div class="row justify-content-center">
         <div class="col-6">

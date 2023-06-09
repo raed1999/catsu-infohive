@@ -4,12 +4,21 @@
         CatSU InfoHive | Manage Faculty
     </x-slot:title>
 
-    <div class="row mb-2 justify-content-between">
+    <div class="row justify-content-between">
         <div class="col">
-            <h3>Manage Faculty</h3>
+            <div class="pagetitle">
+                <h1>Manage Faculty</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Faculty</li>
+                        <li class="breadcrumb-item active">Overview</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
         <div class="col-auto ms-auto">
-            <a href="{{ route('dean.manage-faculty.create') }}" class="btn btn-primary">Add Faculty</a>
+            <a href="{{ route('dean.manage-faculty.create') }}" class="btn btn-sm btn-primary mt-2">Add Faculty</a>
         </div>
     </div>
 
