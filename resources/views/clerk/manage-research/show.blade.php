@@ -1,9 +1,23 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Manage Research
+        CatSU InfoHive | Manage Capstone | Thesis
     </x-slot:title>
 
+    <div class="row justify-content-between">
+        <div class="col">
+            <div class="pagetitle">
+                <h1>Manage Capstone | Thesis</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Capstone | Thesis</li>
+                        <li class="breadcrumb-item active">Capstone | Thesis Details</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+    </div>
 
     <div class="card">
         {{--  <div class="card-header">Header</div> --}}
@@ -76,7 +90,7 @@
                 var confirmButton = $(this);
 
                 swal.fire({
-                    title: 'Confirm Research?',
+                    title: 'Confirm capstone/thesis?',
                     text: 'Confirming this will make it searchable.',
                     icon: 'info',
                     showCancelButton: true,
@@ -97,7 +111,7 @@
                                 location.reload();
                                 swal.fire({
                                     title: 'Success!',
-                                    text: 'Research confirmed successfully.',
+                                    text: 'Capstone | Thesis confirmed successfully.',
                                     icon: 'success',
                                     confirmButtonColor: '#0d6efd',
                                 });
@@ -119,7 +133,7 @@
 
                 swal.fire({
                     title: 'Undo confirmation',
-                    text: 'Doing this will make this research unsearchable.',
+                    text: 'Doing this will make this capstone/thesis unsearchable.',
                     icon: 'warning',
                     showCancelButton: true,
                     confirmButtonText: 'Yes, undo!',

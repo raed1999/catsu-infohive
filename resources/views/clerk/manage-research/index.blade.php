@@ -1,14 +1,24 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Manage Research
+        CatSU InfoHive | Manage Capstone | Thesis
     </x-slot:title>
 
-    <div class="row mb-2 justify-content-center">
+    <div class="row justify-content-between">
         <div class="col">
-            <h3>Manage Research</h3>
+            <div class="pagetitle">
+                <h1>Manage Capstone | Thesis</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Capstone | Thesis</li>
+                        <li class="breadcrumb-item active">Overview</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
+
     <div class="row">
         <div class="col">
             <div style="width:100% !important" class="card w-100">
@@ -28,7 +38,7 @@
                 var confirmButton = $(this);
 
                 swal.fire({
-                    title: 'Confirm Research?',
+                    title: 'Confirm capstone/thesis?',
                     text: 'Confirming this will make it researchable.',
                     icon: 'info',
                     showCancelButton: true,
@@ -49,7 +59,7 @@
                                 $('#research-table').DataTable().draw(false);
                                 swal.fire({
                                     title: 'Success!',
-                                    text: 'Research confirmed successfully.',
+                                    text: 'Capstone | Thesis confirmed successfully.',
                                     icon: 'success',
                                     confirmButtonColor: '#0d6efd',
                                 });

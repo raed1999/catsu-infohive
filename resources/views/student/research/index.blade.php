@@ -4,14 +4,21 @@
         CatSU InfoHive | Manage Capstone / Thesis
     </x-slot:title>
 
-    <div class="row mb-2 justify-content-between">
+    <div class="row justify-content-between">
         <div class="col">
-            <h3> Manage Capstone / Thesis</h3>
-        </div>
-        <div class="col-auto">
+            <div class="pagetitle">
+                <h1>Manage Capstone | Thesis</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Capstone | Thesis</li>
+                        <li class="breadcrumb-item active">Details</li>
+                    </ol>
+                </nav>
+            </div>
         </div>
     </div>
-    {{--     {{ dd(Auth::user()) }} --}}
+
     @if (Auth::user()->research_id == null)
         <div class="row mb-2 justify-content-between">
             <div class="col">
@@ -32,9 +39,19 @@
             <div class="card-body p-5">
 
                 @if ($research->confirmed_by_id)
-                    <span class="badge bg-success text-white" data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Research that are confirmed are not editable'>Confirmed</span>
+                    <span class="badge bg-success p-2  text-white" data-bs-toggle='tooltip' data-bs-placement='bottom'
+                        data-bs-original-title='Capstone | Thesis that are confirmed are not editable'>Confirmed</span>
                 @else
-                    <span class="badge bg-warning text-white" data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Research that are confirmed are not editable'>Not confirmed</span>
+                    <span class="badge bg-warning  p-2 text-white" data-bs-toggle='tooltip' data-bs-placement='bottom'
+                        data-bs-original-title='Capstone | Thesis that are confirmed are not editable'>Not confirmed</span>
+                @endif
+
+                @if (!$research->confirmed_by_id)
+                    <span>
+                        <a href="{{ route('student.research.edit', $research->id) }}"
+                            class="btn btn-sm btn-primary">Edit
+                            Capstone / Thesis</a>
+                    </span>
                 @endif
 
                 <div class="row align-items-center">
@@ -43,13 +60,7 @@
                             {{ $research->title . ', ' . $research->year }}
                         </h4>
                     </div>
-                    @if (!$research->confirmed_by_id)
-                        <div class="col-auto mb-3">
-                            <a href="{{ route('student.research.edit', $research->id) }}"
-                                class="btn btn-sm btn-primary">Edit
-                                Capstone / Thesis</a>
-                        </div>
-                    @endif
+
                 </div>
 
                 <div class="mb-3">

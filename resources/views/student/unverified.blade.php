@@ -52,10 +52,9 @@
 
         <div class="d-flex align-items-center justify-content-between">
             <a href="index.html" class="logo d-flex align-items-center">
-                <img src="assets/img/catsu.png" alt="">
+                <img src="{{ asset('assets/img/catsu.png') }}" alt="">
                 <span class="d-none d-lg-block">CatSu InfoHive</span>
             </a>
-            {{--   <i class="bi bi-list toggle-sidebar-btn"></i> --}}
         </div><!-- End Logo -->
 
         <nav class="header-nav ms-auto">
@@ -101,7 +100,7 @@
 
     <main id="main" class="main ms-0 pt-5 text-center " style="height: 82vh;width:100% !important">
 
-        <div class="row mb-2 justify-content-between">
+        <div class="row mb-2 justify-content-between pagetitle">
             <div class="col">
                 <h3>Welcome</h3>
             </div>
