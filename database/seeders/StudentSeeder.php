@@ -17,15 +17,15 @@ class StudentSeeder extends Seeder
     {
 
         /* Student CICT [BSIT] Dummy Data */
-        for ($i = 0; $i < 3000; $i++) {
+        for ($i = 0; $i < 2000; $i++) {
             $student = new Student([
                 'first_name' => fake()->firstName(),
                 'middle_name' => fake()->lastName(),
                 'last_name' => fake()->lastName(),
                 'email' => fake()->unique()->email(),
                 'student_id' => fake()->unique()->numerify('20##-#####'),
-                'research_id' => fake()->numberBetween(16,2000,4),
-                'program_id' => 3,
+                'research_id' => fake()->numberBetween(1,250,4),
+                'program_id' => fake()->numberBetween(1,3),
                 'usertype_id' => 5,
                 ]);
 
@@ -33,15 +33,15 @@ class StudentSeeder extends Seeder
         }
 
         /* Student CEA [BSCE] Dummy Data */
-        for ($i = 0; $i < 5; $i++) {
+        for ($i = 0; $i < 1000; $i++) {
             $student = new Student([
                 'first_name' => fake()->firstName(),
                 'middle_name' => fake()->lastName(),
                 'last_name' => fake()->lastName(),
-                'email' => fake()->email(),
-                'student_id' => fake()->numerify('2018-#####'),
-                'research_id' => fake()->numberBetween(1,15),
-                'program_id' => 4,
+                'email' => fake()->unique()->email(),
+                'student_id' => fake()->unique()->numerify('20##-#####'),
+                'research_id' => fake()->numberBetween(251,500,4),
+                'program_id' => fake()->numberBetween(4,6),
                 'usertype_id' => 5,
                 ]);
 

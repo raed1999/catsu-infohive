@@ -1,8 +1,9 @@
 <?php
 
-namespace App\DataTables\Dean;
+namespace App\DataTables\Admin;
 
-use App\Models\Program;
+use App\Constants\Role;
+use App\Models\Faculty;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
 use Yajra\DataTables\EloquentDataTable;
@@ -11,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class DeanProgramDataTable extends DataTable
+class AdminClerkDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,26 +22,40 @@ class DeanProgramDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
+            ->editColumn('status', function ($query) {
+                if (!$query->deleted_at) {
+                    $status = "<span class='badge bg-primary rounded-pill'>Enabled</span>";
+                }
+
+                if ($query->deleted_at) {
+                    $status = "<span class='badge bg-danger rounded-pill'>Disabled</span>";
+                }
+
+                return  $status;
+            })
             ->addColumn('action', function ($query) {
 
-                $editButton = "<a href='" . route('dean.manage-program.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>";
+                $viewButton = "<a href='" . route('admin.manage-clerk.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
 
-                return   $editButton;
+                return  $viewButton;
             })
+            ->orderColumn('status', '-deleted_at $1')
             ->addIndexColumn()
-            ->rawColumns(['action'])
+            ->rawColumns(['status', 'action'])
             ->setRowId('id');
     }
 
     /**
      * Get the query source of dataTable.
      */
-    public function query(Program $model): QueryBuilder
+    public function query(Faculty $model): QueryBuilder
     {
         return $model
-            ->where('college_id', Auth::user()->college_id)
+            ->with(['college'])
+            ->where('usertype_id', Role::CLERK)
+            ->where('college_id', '<>', Auth::user()->college_id)
             ->withTrashed()
-            ->select('programs.*');
+            ->select('faculties.*');
     }
 
 
@@ -50,7 +65,7 @@ class DeanProgramDataTable extends DataTable
     public function html(): HtmlBuilder
     {
         return $this->builder()
-            ->setTableId('programs-table')
+            ->setTableId('clerks-table')
             ->columns($this->getColumns())
             ->minifiedAjax()
             /*   ->dom('Bfrtip') */
@@ -67,8 +82,8 @@ class DeanProgramDataTable extends DataTable
                 /*  Button::make('reload') */
             ])->parameters([
                 'order' => [
-                    [1, 'asc'],
-                    [2, 'desc']
+                    [4, 'asc'],
+                    [1, 'asc']
                 ],
                 'stateSave' => 'true'
             ]);
@@ -84,8 +99,16 @@ class DeanProgramDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->addClass('text-center'),
-            Column::make(['title' => 'Code', 'data' => 'acroname']),
-            Column::make(['title' => 'Program', 'data' => 'name']),
+            Column::make('first_name'),
+            Column::make('middle_name'),
+            Column::make('last_name'),
+            Column::make(['title' => 'College', 'data' => 'college.acroname'])
+                ->addClass('text-center'),
+            Column::make('created_at')
+                ->addClass('text-center'),
+            Column::make('status')
+                ->searchable(false)
+                ->addClass('text-center'),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)
@@ -99,6 +122,6 @@ class DeanProgramDataTable extends DataTable
      */
     protected function filename(): string
     {
-        return 'InfoHive_Programs_Information' . date('YmdHis');
+        return 'InfoHive_Clerks_Information' . date('YmdHis');
     }
 }

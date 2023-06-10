@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Clerk;
+namespace App\DataTables\Admin;
 
 use App\Constants\Role;
 use App\Models\Student;
@@ -12,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class StudentsDataTable extends DataTable
+class AdminStudentDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -43,10 +43,9 @@ class StudentsDataTable extends DataTable
             })
             ->addColumn('action', function ($query) {
 
-                $viewButton = "<a href='" . route('clerk.manage-student.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
-                /*   $editButton = "<a href='" . route('clerk.manage-student.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>"; */
+                $viewButton = "<a href='" . route('admin.manage-student.show', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='View Details' class='btn btn-sm btn-primary text-light me-2'><i class='bx bx-show'></i></a>";
 
-                return  $viewButton /* . $editButton */;
+                return  $viewButton ;
             })
             ->orderColumn('status', '-deleted_at $1')
             ->addIndexColumn()
@@ -61,7 +60,6 @@ class StudentsDataTable extends DataTable
     {
         return $model
             ->where('usertype_id', Role::STUDENT)
-            ->whereRelation('program', 'college_id', Auth::user()->college_id)
             ->with('college', 'program', 'confirmedBy')
             ->withTrashed()
             ->select('students.*');
@@ -91,8 +89,8 @@ class StudentsDataTable extends DataTable
                 /*  Button::make('reload') */
             ])->parameters([
                 'order' => [
-                    [1, 'asc'],
-                    [2, 'desc']
+                    [6, 'asc'],
+                    [2, 'desc'],
                 ],
                 'stateSave' => 'true'
             ]);
@@ -112,6 +110,9 @@ class StudentsDataTable extends DataTable
             Column::make('first_name'),
             Column::make('middle_name'),
             Column::make('last_name'),
+            Column::make(['title' => 'College', 'data' => 'college.acroname'])
+                ->addClass('text-center')
+                ->orderable(false),
             Column::make(['title' => 'Program', 'data' => 'program.acroname'])
                 ->addClass('text-center'),
             Column::make('created_at')

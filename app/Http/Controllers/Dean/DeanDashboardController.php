@@ -57,7 +57,10 @@ class DeanDashboardController extends Controller
             ->count();
 
         /* Keywords */
-        $topKeywords = Research::select('keywords')
+        $topKeywords = Research::whereHas('authors.program.college', function ($query) {
+            $query->where('id', Auth::user()->college_id);
+        })
+            ->select('keywords')
             ->get()
             ->pluck('keywords')
             ->flatMap(function ($keywords) {
@@ -75,6 +78,7 @@ class DeanDashboardController extends Controller
                 ];
             })
             ->values();
+
 
 
 

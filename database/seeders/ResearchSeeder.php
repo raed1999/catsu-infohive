@@ -14,7 +14,7 @@ class ResearchSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 2000; $i++) {
+        for ($i = 0; $i < 500; $i++) {
             $research = new Research([
                 'title' => fake()->sentence(13),
                 'abstract' => fake()->paragraph(3),

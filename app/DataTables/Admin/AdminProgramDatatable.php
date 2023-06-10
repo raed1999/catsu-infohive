@@ -1,6 +1,6 @@
 <?php
 
-namespace App\DataTables\Dean;
+namespace App\DataTables\Admin;
 
 use App\Models\Program;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
@@ -11,7 +11,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class DeanProgramDataTable extends DataTable
+class AdminProgramDataTable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -21,14 +21,7 @@ class DeanProgramDataTable extends DataTable
     public function dataTable(QueryBuilder $query): EloquentDataTable
     {
         return (new EloquentDataTable($query))
-            ->addColumn('action', function ($query) {
-
-                $editButton = "<a href='" . route('dean.manage-program.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>";
-
-                return   $editButton;
-            })
             ->addIndexColumn()
-            ->rawColumns(['action'])
             ->setRowId('id');
     }
 
@@ -38,8 +31,7 @@ class DeanProgramDataTable extends DataTable
     public function query(Program $model): QueryBuilder
     {
         return $model
-            ->where('college_id', Auth::user()->college_id)
-            ->withTrashed()
+            ->with(['college'])
             ->select('programs.*');
     }
 
@@ -84,13 +76,12 @@ class DeanProgramDataTable extends DataTable
                 ->searchable(false)
                 ->orderable(false)
                 ->addClass('text-center'),
-            Column::make(['title' => 'Code', 'data' => 'acroname']),
+            Column::make(['title' => 'Code', 'data' => 'acroname'])
+                 ->addClass('text-center'),
             Column::make(['title' => 'Program', 'data' => 'name']),
-            Column::computed('action')
-                ->exportable(false)
-                ->printable(false)
-                ->width(100)
+            Column::make(['title' => 'College', 'data' => 'college.acroname'])
                 ->addClass('text-center'),
+
         ];
     }
 

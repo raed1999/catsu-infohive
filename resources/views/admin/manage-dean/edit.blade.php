@@ -4,7 +4,23 @@
         CatSU InfoHive | Manage Deans
     </x-slot:title>
 
-    <h3 class="mb-3">Manage Deans</h3>
+    <div class="row justify-content-between">
+        <div class="col">
+            <div class="pagetitle">
+                <h1>Manage Dean</h1>
+                <nav>
+                    <ol class="breadcrumb">
+                        <li class="breadcrumb-item"><a href="">Home</a></li>
+                        <li class="breadcrumb-item">Manage Dean</li>
+                        <li class="breadcrumb-item active">Edit Dean</li>
+                    </ol>
+                </nav>
+            </div>
+        </div>
+        <div class="col-auto ms-auto">
+            <a href="{{ route('admin.manage-dean.create') }}" class="btn btn-sm mt-2 btn-primary">Add Dean</a>
+        </div>
+    </div>
 
     <div class="row justify-content-center">
         <div class="col-6">

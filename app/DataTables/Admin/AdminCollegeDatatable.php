@@ -1,7 +1,8 @@
 <?php
 
-namespace App\DataTables\Dean;
+namespace App\DataTables\Admin;
 
+use App\Models\College;
 use App\Models\Program;
 use Illuminate\Database\Eloquent\Builder as QueryBuilder;
 use Illuminate\Support\Facades\Auth;
@@ -11,7 +12,7 @@ use Yajra\DataTables\Html\Button;
 use Yajra\DataTables\Html\Column;
 use Yajra\DataTables\Services\DataTable;
 
-class DeanProgramDataTable extends DataTable
+class AdminCollegeDatatable extends DataTable
 {
     /**
      * Build the DataTable class.
@@ -23,7 +24,7 @@ class DeanProgramDataTable extends DataTable
         return (new EloquentDataTable($query))
             ->addColumn('action', function ($query) {
 
-                $editButton = "<a href='" . route('dean.manage-program.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>";
+                $editButton = "<a href='" . route('admin.manage-college.edit', $query->id) . "'  data-bs-toggle='tooltip' data-bs-placement='bottom' data-bs-original-title='Edit' class='btn btn-sm btn-warning text-light'><i class='bi bi-pencil'></i></a>";
 
                 return   $editButton;
             })
@@ -35,12 +36,11 @@ class DeanProgramDataTable extends DataTable
     /**
      * Get the query source of dataTable.
      */
-    public function query(Program $model): QueryBuilder
+    public function query(College $model): QueryBuilder
     {
-        return $model
-            ->where('college_id', Auth::user()->college_id)
-            ->withTrashed()
-            ->select('programs.*');
+        return $model->where('acroname', '<>', 'ITS')
+            ->select('colleges.*');
+
     }
 
 
@@ -85,7 +85,7 @@ class DeanProgramDataTable extends DataTable
                 ->orderable(false)
                 ->addClass('text-center'),
             Column::make(['title' => 'Code', 'data' => 'acroname']),
-            Column::make(['title' => 'Program', 'data' => 'name']),
+            Column::make(['title' => 'College', 'data' => 'name']),
             Column::computed('action')
                 ->exportable(false)
                 ->printable(false)

@@ -81,6 +81,12 @@ class FacultiesDatatable extends DataTable
                 Button::make('print'),
                 /*  Button::make('reset'), */
                 /*  Button::make('reload') */
+            ])->parameters([
+                'order' => [
+                    [1, 'asc'],
+                    [2, 'desc']
+                ],
+                'stateSave' => 'true'
             ]);
     }
 

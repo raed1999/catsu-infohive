@@ -1,6 +1,12 @@
 <?php
 
+use App\Http\Controllers\Admin\AdminClerkController;
+use App\Http\Controllers\Admin\AdminCollegeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminFacultyController;
+use App\Http\Controllers\Admin\AdminProgramController;
+use App\Http\Controllers\Admin\AdminResearchController;
+use App\Http\Controllers\Admin\AdminStudentController;
 use App\Http\Controllers\Dean\DeanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
@@ -64,6 +70,12 @@ Route::prefix('a')
     ->group(function () {
         Route::resource('/manage-dean', AdminController::class)->withTrashed();
         Route::delete('/manage-dean/{manage_dean}/restore', [AdminController::class, 'restore'])->withTrashed(['show'])->name('manage-dean.restore');
+        Route::resource('/manage-research', AdminResearchController::class);
+        Route::resource('/manage-college', AdminCollegeController::class);
+        Route::resource('/manage-program', AdminProgramController::class);
+        Route::resource('/manage-clerk', AdminClerkController::class);
+        Route::resource('/manage-faculty', AdminFacultyController::class);
+        Route::resource('/manage-student', AdminStudentController::class);
     });
 
 /**
