@@ -185,5 +185,22 @@ class FacultySeeder extends Seeder
         ]);
 
         $faculty->save();
+
+        /* Clerk */
+        $ceaDean = Faculty::where('email', 'cea@dean.com')->value('id');
+        $faculty = new Faculty([
+            'first_name' => 'Jone',
+            'middle_name' => 'Wolf',
+            'last_name' => 'Doe',
+            'email' => 'cea@clerk.com',
+            'email_verified_at' => now(),
+            'college_id' => $cea,
+            'usertype_id' => Role::CLERK,
+            'added_by_id' => $ceaDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $faculty->save();
     }
 }

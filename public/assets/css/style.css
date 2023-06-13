@@ -860,6 +860,11 @@ h6 {
     background: #fffcdf;
 }
 
+.dashboard .college-card .card-icon {
+    color: #a20995;
+    background: #ffdff9;
+}
+
 /* Activity */
 .dashboard .activity {
     font-size: 14px;

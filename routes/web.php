@@ -3,6 +3,7 @@
 use App\Http\Controllers\Admin\AdminClerkController;
 use App\Http\Controllers\Admin\AdminCollegeController;
 use App\Http\Controllers\Admin\AdminController;
+use App\Http\Controllers\Admin\AdminDashboardController;
 use App\Http\Controllers\Admin\AdminFacultyController;
 use App\Http\Controllers\Admin\AdminProgramController;
 use App\Http\Controllers\Admin\AdminResearchController;
@@ -76,6 +77,7 @@ Route::prefix('a')
         Route::resource('/manage-clerk', AdminClerkController::class);
         Route::resource('/manage-faculty', AdminFacultyController::class);
         Route::resource('/manage-student', AdminStudentController::class);
+        Route::resource('/manage-dashboard', AdminDashboardController::class);
     });
 
 /**

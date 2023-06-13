@@ -7,14 +7,16 @@
           <li class="nav-heading">University</li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="#">
+              <a class="nav-link {{ Request::routeIs('admin.manage-dashboard.*') ? '' : 'collapsed' }}"
+                  href="{{ route('admin.manage-dashboard.index') }}">
                   <i class="bi bi-grid"></i>
                   <span>Dashboard</span>
               </a>
           </li>
 
           <li class="nav-item">
-              <a class="nav-link collapsed" href="{{ route('research.search.index') }}">
+              <a class="nav-link {{ Request::routeIs('research.search.*') ? '' : 'collapsed' }}"
+                  href="{{ route('research.search.index') }}">
                   <i class="bi bi-search"></i>
                   <span>Search Capstone | Thesis</span>
               </a>
