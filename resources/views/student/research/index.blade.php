@@ -39,17 +39,17 @@
             <div class="card-body p-5">
 
                 @if ($research->confirmed_by_id)
-                    <span class="badge bg-success p-2  text-white" data-bs-toggle='tooltip' data-bs-placement='bottom'
+                    <span style="padding: 0.6rem!important" class="badge bg-success p-2  text-white" data-bs-toggle='tooltip' data-bs-placement='bottom'
                         data-bs-original-title='Capstone | Thesis that are confirmed are not editable'>Confirmed</span>
                 @else
-                    <span class="badge bg-warning  p-2 text-white" data-bs-toggle='tooltip' data-bs-placement='bottom'
+                    <span style="padding: 0.6rem!important" class="badge bg-warning  p-2 text-white" data-bs-toggle='tooltip' data-bs-placement='bottom'
                         data-bs-original-title='Capstone | Thesis that are confirmed are not editable'>Not confirmed</span>
                 @endif
 
                 @if (!$research->confirmed_by_id)
-                    <span>
+                    <span >
                         <a href="{{ route('student.research.edit', $research->id) }}"
-                            class="btn btn-sm btn-primary">Edit
+                            class="btn btn-sm btn-primary fw-bolder">Edit
                             Capstone / Thesis</a>
                     </span>
                 @endif

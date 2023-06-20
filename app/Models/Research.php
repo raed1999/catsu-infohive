@@ -2,13 +2,15 @@
 
 namespace App\Models;
 
+use Database\Seeders\StudentSeeder;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Znck\Eloquent\Traits\BelongsToThrough;
 
 class Research extends Model
 {
-    use HasFactory, SoftDeletes;
+    use HasFactory, SoftDeletes, BelongsToThrough;
 
     protected $fillable = [];
 
@@ -41,6 +43,26 @@ class Research extends Model
     public function facultyInCharge()
     {
         return $this->belongsTo(Faculty::class, 'faculty_in_charge_id');
+    }
+
+    public function programs()
+    {
+        return $this->hasManyThrough(Program::class, Student::class, 'research_id', 'id', 'id', 'program_id');
+    }
+
+    public function program()
+    {
+        return $this->hasOneThrough(Program::class, Student::class, 'research_id', 'id', 'id', 'program_id');
+    }
+
+    public function colleges()
+    {
+        return $this->hasManyThrough(College::class, Program::class, 'id', 'id', 'program_id', 'college_id');
+    }
+
+    public function college()
+    {
+        return $this->hasOneThrough(College::class, Program::class, 'id', 'id', 'program_id', 'college_id');
     }
 
     protected $casts = [

@@ -133,8 +133,10 @@
                                         <td class="text-center">{{ $loop->iteration }}</td>
                                         <td class="text-center fs- fw-bold h6">
                                             <span class="badge bg-primary">{{ $keyword->keyword }}</span>
+                                        </td clas>
+                                        <td class="text-center">
+                                            {{ $keyword->count > 1 ? $keyword->count . ' ' . str()->plural('time') : $keyword->count . ' ' . 'time' }}
                                         </td>
-                                        <td class="text-center">{{ $keyword->count }} times</td>
                                     </tr>
                                 @endforeach
                             </tbody>

@@ -88,6 +88,15 @@
                                 Register
                             </a>
                         </li>
+                    @elseif (Route::is('change-password'))
+                        <form action="{{ route('auth.logout') }}" class="mb-0" method="post">
+                            <li class="nav-item me-5 ">
+                                @csrf
+                                <button class="dropdown-item d-flex align-items-center">
+                                    <span>Sign Out</span>
+                                </button>
+                            </li>
+                        </form>
                     @else
                         <li class="nav-item me-5 ">
                             <a class="nav-link" href="{{ route('research.search.index') }}">

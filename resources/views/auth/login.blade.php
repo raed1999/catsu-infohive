@@ -13,7 +13,6 @@
                         <div class="col-lg-4 col-md-6 d-flex flex-column align-items-center justify-content-center">
 
                             <div class="card mb-3">
-
                                 <div class="card-body">
 
                                     <div class="pb-2">
@@ -21,23 +20,17 @@
                                         <p class="text-center small">Enter your username & password to login</p>
                                     </div>
 
-
-                                    <div class="">
-
-                                        {{--     @if ($errors->any())
-                                            @foreach ($errors->all() as $error)
-                                                <p class="text-danger fw-bold pb-0"> {{ $error }}</p>
-                                            @endforeach
-                                        @endif --}}
-
-                                        @if (session('success'))
-                                            <p class="text-success fw-bold pb-0"> {{ session('success') }}</p>
-                                        @endif
-
-                                    </div>
+                                    @if (session('success'))
+                                        <div class="alert alert-success bg-success text-light border-0 alert-dismissible fade show"
+                                            role="alert">
+                                            {{ session('success') }}
+                                            <button type="button" class="btn-close btn-close-white"
+                                                data-bs-dismiss="alert" aria-label="Close"></button>
+                                        </div>
+                                    @endif
 
                                     <form class="row g-3 needs-validation" method="POST"
-                                        action="{{ route('auth.login-process') }}" novalidate>
+                                        action="{{ route('auth.login-process') }}">
                                         @csrf
 
                                         <div class="col-12">
@@ -51,11 +44,10 @@
                                             @enderror
                                         </div>
 
-
                                         <div class="col-12">
                                             <label for="usertype" class="form-label">User type</label>
                                             <select class="form-select" name="usertype" id="usertype"
-                                                aria-label="Default select example">
+                                                aria-label="Default select example" required>
                                                 <option value="" disabled selected></option>
                                                 <option @if (old('usertype') == 4) selected @endif
                                                     value="4">Faculty</option>
@@ -79,7 +71,6 @@
                                                 </div>
                                             @enderror
                                         </div>
-
                                         {{--   <div class="col-12">
                                             <div class="form-check">
                                                 <input class="form-check-input" type="checkbox" name="remember"
@@ -119,6 +110,5 @@
 
     <a href="#" class="back-to-top d-flex align-items-center justify-content-center"><i
             class="bi bi-arrow-up-short"></i></a>
-
 
 </x-layout>

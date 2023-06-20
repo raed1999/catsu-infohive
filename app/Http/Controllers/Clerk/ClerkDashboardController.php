@@ -1,10 +1,9 @@
 <?php
 
-namespace App\Http\Controllers\Admin;
+namespace App\Http\Controllers\Clerk;
 
 use App\Constants\Role;
 use App\Http\Controllers\Controller;
-use App\Models\College;
 use App\Models\Faculty;
 use App\Models\Program;
 use App\Models\Research;
@@ -13,7 +12,7 @@ use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\DB;
 
-class AdminDashboardController extends Controller
+class ClerkDashboardController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -22,45 +21,33 @@ class AdminDashboardController extends Controller
     {
 
         /* Research */
-        $researchCount = Research::count();
+        $researchCount = Research::whereHas('authors.program.college', function ($query) {
+            $query->where('id', Auth::user()->college_id);
+        })->count();
 
-        $confirmedResearchCount = Research::whereNotNull('confirmed_by_id')
+        $confirmedResearchCount = Research::whereHas('authors.program.college', function ($query) {
+            $query->where('id', Auth::user()->college_id);
+        })->whereNotNull('confirmed_by_id')
             ->count();
 
         /* Student */
         $studentCount =  Student::where('usertype_id', Role::STUDENT)
+            ->whereRelation('program', 'college_id', Auth::user()->college_id)
             ->count();
 
         $confirmedStudentCount =  Student::where('usertype_id', Role::STUDENT)
+            ->whereRelation('program', 'college_id', Auth::user()->college_id)
             ->whereNotNull('email_verified_at')
             ->count();
 
-        /* Faculty */
-        $allFacultyCount =  Faculty::where('college_id', '<>', Auth::user()->college_id)
-            ->count();
-
-        $deanCount =  Faculty::where('usertype_id', Role::DEAN)
-            ->where('college_id', '<>', Auth::user()->college_id)
-            ->count();
-
-        $facultyCount =  Faculty::where('usertype_id', Role::FACULTY)
-            ->where('college_id', '<>', Auth::user()->college_id)
-            ->count();
-
-        $clerkCount =  Faculty::where('usertype_id', Role::CLERK)
-            ->where('college_id', '<>', Auth::user()->college_id)
-            ->count();
-
-        /* College */
-        $collegeCount =  College::where('id', '<>', Auth::user()->college_id)
-            ->count();
 
         /* Program */
-        $programCount =  Program::count();
-
+       /*  $programCount =  Program::where('college_id', Auth::user()->college_id)
+            ->count();
+ */
         /* Keywords */
         $topKeywords = Research::whereHas('authors.program.college', function ($query) {
-            $query->where('id', '<>', Auth::user()->college_id);
+            $query->where('id', Auth::user()->college_id);
         })
             ->select('keywords')
             ->get()
@@ -81,18 +68,16 @@ class AdminDashboardController extends Controller
             })
             ->values();
 
-        return view('admin.manage-dashboard.index', compact(
+
+
+
+        return view('clerk.manage-dashboard.index', compact(
             'researchCount',
             'confirmedResearchCount',
             'studentCount',
             'confirmedStudentCount',
-            'allFacultyCount',
-            'deanCount',
-            'facultyCount',
-            'clerkCount',
             'topKeywords',
-            'collegeCount',
-            'programCount',
+         /*    'programCount' */
         ));
     }
 

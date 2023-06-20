@@ -6,12 +6,12 @@
 
             <li class="nav-heading">University</li>
 
-            <li class="nav-item">
+           {{--  <li class="nav-item">
                 <a class="nav-link {{ Request::routeIs('student.dashboard.*') ? '' : 'collapsed' }}" href="{{ route('student.dashboard.index') }}">
                     <i class="bi bi-grid"></i>
                     <span>Dashboard</span>
                 </a>
-            </li>
+            </li> --}}
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::routeIs('research.search.*') ? '' : 'collapsed' }}" href="{{ route('research.search.index') }}">
@@ -20,7 +20,7 @@
                 </a>
             </li>
 
-            <li class="nav-heading">Manage</li>
+           {{--  <li class="nav-heading">Manage</li> --}}
 
             <li class="nav-item">
                 <a class="nav-link {{ Request::routeIs('student.research.*') ? '' : 'collapsed' }}" href="{{ route('student.research.index') }}">

@@ -9,6 +9,7 @@ use App\Models\Student;
 use Illuminate\Http\Request;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 
 class LoginController extends Controller
 {
@@ -30,9 +31,32 @@ class LoginController extends Controller
 
         if ($validated['usertype'] != Role::STUDENT) {
 
-            if (Auth::guard('faculty')->attempt(['email' => $validated['username'], 'password' => $validated['password']])) {
+            Auth::shouldUse('faculty');
 
-                Auth::shouldUse('faculty');
+            $faculty = Faculty::where('email', $validated['username'])->withTrashed()->first();
+
+            /* Check if account exist */
+            if (!$faculty) {
+                return back()->withErrors([
+                    'username' => 'Username doesn\'t exist.',
+                ])->withInput();
+            }
+
+            /* Check if account is active */
+            if ($faculty && $faculty->deleted_at) {
+                return back()->withErrors([
+                    'username' => 'Your account is disabled for some reason. Contact your administrator for more information.',
+                ])->withInput();
+            }
+
+            /* Password */
+            if (!Hash::check($validated['password'], $faculty->password)) {
+                return back()->withErrors([
+                    'password' => 'Incorrect password.',
+                ])->withInput();
+            }
+
+            if (Auth::guard('faculty')->attempt(['email' => $validated['username'], 'password' => $validated['password']])) {
 
                 $request->session()->regenerate();
 
@@ -41,25 +65,20 @@ class LoginController extends Controller
                 $user->session_expires_at = $expiresAt;
                 $user->save();
 
-
                 /* For Admin */
                 if (Auth::user()->usertype_id === Role::ADMIN) {
-                    return redirect()->intended(route('admin.manage-dean.index'));
+                    return redirect()->intended(route('admin.manage-dashboard.index'));
                 }
 
                 /* For Dean */
                 if (Auth::user()->usertype_id === Role::DEAN) {
-                    return redirect()->intended(route('dean.manage-clerk.index'));
+                    return redirect()->intended(route('dean.manage-dashboard.index'));
                 }
 
                 /* For Clerk */
                 if (Auth::user()->usertype_id === Role::CLERK) {
-                    return redirect()->intended(route('clerk.manage-student.index'));
+                    return redirect()->intended(route('clerk.manage-dashboard.index'));
                 }
-            } else {
-                return back()->withErrors([
-                    'password' => 'Incorrect password',
-                ])->withInput();
             }
         }
 
@@ -67,9 +86,33 @@ class LoginController extends Controller
          *  Student Account
          */
         if ($validated['usertype'] == Role::STUDENT) {
-            if (Auth::guard('student')->attempt(['student_id' => $validated['username'], 'password' => $validated['password']])) {
 
-                Auth::shouldUse('student');
+            Auth::shouldUse('student');
+
+            $student = Student::where('student_id', $validated['username'])->withTrashed()->first();
+
+            /* Check if account exist */
+            if (!$student) {
+                return back()->withErrors([
+                    'username' => 'Username doesn\'t exist.',
+                ])->withInput();
+            }
+
+            /* Check if account is active */
+            if ($student && $student->deleted_at) {
+                return back()->withErrors([
+                    'username' => 'Your account is disabled for some reason. Contact your administrator for more information.',
+                ])->withInput();
+            }
+
+            /* Password */
+            if (!Hash::check($validated['password'], $student->password)) {
+                return back()->withErrors([
+                    'password' => 'Incorrect password.',
+                ])->withInput();
+            }
+
+            if (Auth::guard('student')->attempt(['student_id' => $validated['username'], 'password' => $validated['password']])) {
 
                 $request->session()->regenerate();
 
@@ -79,14 +122,10 @@ class LoginController extends Controller
                 $user->save();
 
                 if (Auth::user()->email_verified_at) {
-                    return redirect()->intended(route('student.dashboard.index'));
+                    return redirect()->intended(route('student.research.index'));
                 }
 
                 return redirect()->intended(route('student.verification'));
-            } else {
-                return back()->withErrors([
-                    'password' => 'Incorrect password',
-                ])->withInput();
             }
         }
     }

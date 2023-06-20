@@ -2,6 +2,7 @@
 
 namespace App\Http;
 
+use App\Http\Middleware\Auth\ChangePassword;
 use Illuminate\Foundation\Http\Kernel as HttpKernel;
 
 class Kernel extends HttpKernel
@@ -74,5 +75,6 @@ class Kernel extends HttpKernel
         'use.faculty.guard' => \App\Http\Middleware\Auth\UseFacultyGuard::class,
         'use.student.guard' => \App\Http\Middleware\Auth\UseStudentGuard::class,
         'is.guard.present' => \App\Http\Middleware\Auth\IsGuardPresent::class,
+        'change.password' => \App\Http\Middleware\Auth\ChangePassword::class,
     ];
 }

@@ -12,6 +12,7 @@ use App\Http\Controllers\Dean\DeanController;
 use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\LogoutController;
 use App\Http\Controllers\Clerk\ClerkController;
+use App\Http\Controllers\Clerk\ClerkDashboardController;
 use App\Http\Controllers\Clerk\ClerkResearchController;
 use App\Http\Controllers\Dean\DeanDashboardController;
 use App\Http\Controllers\Dean\DeanProgramController;
@@ -36,30 +37,18 @@ use Illuminate\Support\Facades\Route;
 */
 
 
-
+/**
+ *  Auth Routes
+ */
 Route::name('auth.')->group(function () {
 
-    /**
-     * Display login page
-     */
-    Route::view('/', 'auth.login')->name('login')
-        ->middleware('prevent.if.logged.in');
-
-    /**
-     * Route for login process
-     */
-    Route::post('/login', [LoginController::class, 'authenticate'])
-        ->name('login-process');
-
-
-    /**
-     * Logout
-     */
-    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout')->middleware(['use.faculty.guard','use.student.guard']);
-
-
+    Route::view('/', 'auth.login')->name('login')->middleware('prevent.if.logged.in');
+    Route::post('/login', [LoginController::class, 'authenticate'])->name('login-process');
+    Route::post('/logout', [LogoutController::class, 'logout'])->name('logout')->middleware(['use.faculty.guard', 'use.student.guard']);
     Route::view('/register', 'auth.register')->name('register');
 });
+
+Route::view('change-password', 'auth.change-password')->name('change-password');
 
 
 /**
@@ -67,8 +56,10 @@ Route::name('auth.')->group(function () {
  */
 Route::prefix('a')
     ->name('admin.')
-    ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
+    ->middleware(['use.faculty.guard', 'auth.session', 'is.logged.in', 'change.password'])
     ->group(function () {
+
+
         Route::resource('/manage-dean', AdminController::class)->withTrashed();
         Route::delete('/manage-dean/{manage_dean}/restore', [AdminController::class, 'restore'])->withTrashed(['show'])->name('manage-dean.restore');
         Route::resource('/manage-research', AdminResearchController::class);
@@ -85,7 +76,7 @@ Route::prefix('a')
  */
 Route::prefix('d')
     ->name('dean.')
-     ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
+    ->middleware(['use.faculty.guard', 'auth.session', 'is.logged.in' . 'change.password'])
     ->group(function () {
         Route::resource('/manage-clerk', DeanController::class)->withTrashed(['show']);
         Route::delete('/manage-clerk/{manage_clerk}/restore', [DeanController::class, 'restore'])->withTrashed(['show'])->name('manage-clerk.restore');
@@ -101,18 +92,15 @@ Route::prefix('d')
  */
 Route::prefix('c')
     ->name('clerk.')
-     ->middleware(['use.faculty.guard','auth.session','is.logged.in'])
+    ->middleware(['use.faculty.guard', 'auth.session', 'is.logged.in' . 'change.password'])
     ->group(function () {
 
-        /* Managing Students */
         Route::resource('/manage-student', ClerkController::class)->withTrashed();
         Route::delete('/manage-student/{manage_student}/restore', [ClerkController::class, 'restore'])->withTrashed()->name('manage-student.restore');
         Route::put('/manage-student/{manage_student}/verify', [ClerkController::class, 'verify'])->withTrashed()->name('manage-student.verify');
         Route::put('/manage-student/{manage_student}/unverifiy', [ClerkController::class, 'unverify'])->withTrashed()->name('manage-student.unverify');
-
-        /* Managing Researches per college */
-        Route::resource('/manage-research',ClerkResearchController::class);
-
+        Route::resource('/manage-research', ClerkResearchController::class);
+        Route::resource('/manage-dashboard', ClerkDashboardController::class);
     });
 
 /**
@@ -120,7 +108,7 @@ Route::prefix('c')
  */
 Route::prefix('s')
     ->name('student.')
-    ->middleware(['use.student.guard','auth.session','is.logged.in'])
+    ->middleware(['use.student.guard', 'auth.session', 'is.logged.in', 'change.password'])
     ->group(function () {
 
         /* Manage Account */
@@ -131,11 +119,11 @@ Route::prefix('s')
         Route::view('/verification', 'student.unverified')->name('verification');
 
         /* Dashboard */
-        Route::view('/d','student.dashboard.index')->name('dashboard.index');
+        Route::view('/d', 'student.dashboard.index')->name('dashboard.index');
 
         /* Research */
         Route::resource('/research', ResearchController::class);
-        Route::get('/research/load-students',[ResearchController::class, 'loadStudents'])->name('research.load-students');
+        Route::get('/research/load-students', [ResearchController::class, 'loadStudents'])->name('research.load-students');
     });
 
 Route::prefix('research')
@@ -145,5 +133,4 @@ Route::prefix('research')
 
         /* Manage Account */
         Route::resource('/search', SearchResearchController::class)->withTrashed();
-
     });
