@@ -20,7 +20,7 @@ class LoginController extends Controller
     {
 
         $validated = $request->validate([
-            'username' => ['required'],
+            'username' => ['required','string'],
             'usertype' => ['required'],
             'password' => ['required'],
         ]);

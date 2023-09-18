@@ -129,6 +129,8 @@ class ClerkResearchDataTable extends DataTable
                     [2, 'desc']
                 ],
                 'stateSave' => 'true'
+            ])->ajax([
+                'ajax' => route('clerk.manage-research.index')
             ]);
     }
 

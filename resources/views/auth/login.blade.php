@@ -1,7 +1,7 @@
 <x-layout>
 
     <x-slot:title>
-        CatSU InfoHive | Register
+        CatSU InfoHive | Login
     </x-slot:title>
 
     <main>

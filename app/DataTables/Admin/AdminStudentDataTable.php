@@ -93,6 +93,8 @@ class AdminStudentDataTable extends DataTable
                     [2, 'desc'],
                 ],
                 'stateSave' => 'true'
+            ])->ajax([
+                'ajax' => route('admin.manage-research.index')
             ]);
     }
 

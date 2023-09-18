@@ -6,8 +6,10 @@ use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Illuminate\Support\Str;
 use App\DataTables\Clerk\StudentsDataTable;
+use App\Imports\Clerk\VerifyStudentImport;
 use App\Models\Student;
 use Illuminate\Support\Facades\Auth;
+use Maatwebsite\Excel\Facades\Excel;
 
 class ClerkController extends Controller
 {
@@ -32,30 +34,9 @@ class ClerkController extends Controller
      */
     public function store(Request $request)
     {
-        /* $validated = $request->validate([
-            'firstName' => 'required|regex:/^[\pL\s\-.]+$/u',
-            'middleName' => 'regex:/^[\pL\s\-.]+$/u',
-            'lastName' => 'required|regex:/^[\pL\s\-.]+$/u',
-            'email' => 'required|email:rfs,dns|unique:faculties,email',
-        ]);
+        Excel::import(new VerifyStudentImport(), $request->file('import_to_verify'));
 
-        $faculty = new Faculty();
-
-        $faculty->first_name = Str::of($validated['firstName'])->trim()->title();
-        $faculty->middle_name = Str::of($validated['middleName'])->trim()->title();
-        $faculty->last_name = Str::of($validated['lastName'])->trim()->title();
-        $faculty->email = $validated['email'];
-
-
-        $faculty->college_id = Auth::user()->college_id;
-        $faculty->usertype_id = Role::CLERK;
-        $faculty->added_by_id = Auth::id();
-
-        if (!$faculty->save()) {
-            return redirect()->route('dean.manage-clerk.create');
-        }
-
-        return redirect()->route('dean.manage-clerk.index'); */
+        return redirect(route('clerk.manage-student.index'));
     }
 
     /**

@@ -48,7 +48,7 @@ class ClerkDashboardController extends Controller
         /* Keywords */
         $topKeywords = Research::whereHas('authors.program.college', function ($query) {
             $query->where('id', Auth::user()->college_id);
-        })
+        })->whereNotNull('confirmed_by_id')
             ->select('keywords')
             ->get()
             ->pluck('keywords')

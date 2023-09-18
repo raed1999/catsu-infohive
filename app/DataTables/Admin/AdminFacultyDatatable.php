@@ -86,6 +86,8 @@ class AdminFacultyDatatable extends DataTable
                     [5, 'asc'],
                 ],
                 'stateSave' => 'true'
+            ])->ajax([
+                'ajax' => route('admin.manage-faculty.index')
             ]);
     }
 

@@ -86,6 +86,8 @@ class AdminClerkDataTable extends DataTable
                     [1, 'asc']
                 ],
                 'stateSave' => 'true'
+            ])->ajax([
+                'ajax' => route('admin.manage-clerk.index')
             ]);
     }
 

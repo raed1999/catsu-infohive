@@ -71,6 +71,8 @@ class DeanProgramDataTable extends DataTable
                     [2, 'desc']
                 ],
                 'stateSave' => 'true'
+            ])->ajax([
+                'ajax' => route('dean.manage-program.index')
             ]);
     }
 

@@ -95,6 +95,8 @@ class StudentsDataTable extends DataTable
                     [2, 'desc']
                 ],
                 'stateSave' => 'true'
+            ])->ajax([
+                'ajax' => route('clerk.manage-student.index')
             ]);
     }
 

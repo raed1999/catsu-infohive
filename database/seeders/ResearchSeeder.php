@@ -14,14 +14,14 @@ class ResearchSeeder extends Seeder
      */
     public function run(): void
     {
-        for ($i = 0; $i < 500; $i++) {
+        for ($i = 0; $i < 15; $i++) {
             $research = new Research([
-                'title' => fake()->sentence(13),
-                'abstract' => fake()->paragraph(3),
-                'year' => fake()->year(),
-                'keywords' => [fake()->word, fake()->word, fake()->word],
-                'advisers_id' => fake()->numberBetween(2, 100),
-                'faculty_in_charge_id' => fake()->numberBetween(2, 100),
+                'title' => fake()->catchPhrase() .' '.fake()->bs(),
+                'abstract' => fake('en_US')->paragraph(20),
+                'year' => fake()->dateTimeBetween('-5 years')->format('Y'),
+                'keywords' => [fake('en_US')->word, fake('en_US')->word, fake('en_US')->word],
+                'advisers_id' => fake('en_US')->numberBetween(2, 100),
+                'faculty_in_charge_id' => fake('en_US')->numberBetween(2, 100),
             ]);
 
             $research->save();
