@@ -39,7 +39,7 @@ class StudentController extends Controller
             'lastName' => 'required|regex:/^[\pL\s\-.]+$/u',
             'college' => 'required|int',
             'program' => 'required|int',
-            'email' => 'required|email:rfs,dns|unique:students,email',
+            'email' => 'required',
             'studentIdNo' => 'required|unique:students,student_id|regex:/^\d{4}-\d{5}$/',
             'password' => ['required', 'confirmed', Password::min(8)],
             'password_confirmation' => ['required'],

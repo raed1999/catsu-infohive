@@ -32,9 +32,10 @@
     <link
         href="https://cdn.datatables.net/v/bs5/dt-1.13.4/b-2.3.6/b-colvis-2.3.6/b-html5-2.3.6/b-print-2.3.6/cr-1.6.2/date-1.4.0/fc-4.2.2/fh-3.3.2/kt-2.8.2/r-2.4.1/rg-1.3.1/rr-1.3.3/sc-2.1.1/sb-1.4.2/sp-2.1.2/sr-1.2.2/datatables.min.css"
         rel="stylesheet" />
-    @vite(['resources/css/app.css'])
+    @vite(['resources/css/app.css','public/build/assets/app-eb926cf2.css'])
 
-    <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+        <link href="{{ asset('assets/css/style.css') }}" rel="stylesheet">
+        @vite(['resources/css/app.css'])
     @livewireStyles()
     <style>
         [x-cloak] {
@@ -224,7 +225,7 @@
     @stack('scripts')
 
 
-    @vite(['resources/js/app.js']);
+    @vite(['resources/js/app.js','public/build/assets/app-297ae248.js']);
 
     <!-- Template Main JS File -->
     <script src="{{ asset('assets/js/main.js') }}"></script>

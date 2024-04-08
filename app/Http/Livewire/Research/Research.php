@@ -104,7 +104,7 @@ class Research extends Component
                     ->when($this->filter === 'keyword', function ($query) {
                         $query->where(function ($query) {
                             $search = '%' . $this->search . '%';
-                            $query->where('keyword', 'like', $search);
+                            $query->where('keywords', 'like', $search);
                         });
                     })
                     ->when($this->filter === 'author', function ($query) {

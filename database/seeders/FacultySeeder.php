@@ -147,9 +147,86 @@ class FacultySeeder extends Seeder
 
         $faculty->save();
 
+        $faculty = new Faculty([
+            'first_name' => 'Chiradel',
+            'middle_name' => 'D',
+            'last_name' => 'Tugay',
+            'email' => 'cict@tugay.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $faculty->save();
+
+        $faculty = new Faculty([
+            'first_name' => 'Aster Vivien',
+            'middle_name' => 'C',
+            'last_name' => 'Vargas',
+            'email' => 'cict@aster.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $faculty->save();
+
+        $faculty = new Faculty([
+            'first_name' => 'Daryl',
+            'middle_name' => 'O',
+            'last_name' => 'Pulvinar',
+            'email' => 'cict@daryl.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $faculty->save();
+
+        $faculty = new Faculty([
+            'first_name' => 'Ramona Michelle',
+            'middle_name' => '',
+            'last_name' => 'Magtangob',
+            'email' => 'cict@mic.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $faculty->save();
+
+        $faculty = new Faculty([
+            'first_name' => 'Mary Rose',
+            'middle_name' => '',
+            'last_name' => 'Alcantara',
+            'email' => 'cict@alcantara.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+
+        $faculty->save();
+
+
+
         /* Randomize Faculty */
 
-        for ($i = 0; $i < 100; $i++) {
+    /*     for ($i = 0; $i < 100; $i++) {
 
             $faculty = new Faculty([
                 'first_name' => fake()->firstName(),
@@ -166,7 +243,7 @@ class FacultySeeder extends Seeder
 
 
             $faculty->save();
-        }
+        } */
 
         /* CEA Default Accounts */
 

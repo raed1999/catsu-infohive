@@ -22,9 +22,11 @@ return new class extends Migration
             $table->string('image_path')->unique()->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password')->default(Hash::make('password'));
+
             $table->foreignId('college_id')->constrained('colleges');
             $table->foreignId('usertype_id')->constrained('user_types');
             $table->foreignId('added_by_id')->constrained('faculties');
+
             $table->softDeletes();
 
             $table->rememberToken();

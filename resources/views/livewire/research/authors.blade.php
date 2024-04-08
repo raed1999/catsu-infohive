@@ -2,7 +2,7 @@
     data-bs-title="
 @foreach ($authors as $author)
 {{ $author->first_name }}
-{{ $author->middle_name[0] }}.
+{{ $author->middle_name[0] ?? '' }}.
 {{ $author->last_name }} @endforeach
 ">
     @if (count($authors) > 1)
