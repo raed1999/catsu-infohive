@@ -1,0 +1,6 @@
+GitHub Repository: https://github.com/raed1999/catsu-infohive
+
+Requirements:
+PHP 8.1 and later
+Apache 2.4.53
+MariaDB 10.4.24

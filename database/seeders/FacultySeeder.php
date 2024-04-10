@@ -72,101 +72,14 @@ class FacultySeeder extends Seeder
         $faculty->save();
 
         /* Other Teaching Faculties */
-        $faculty = new Faculty([
-            'first_name' => 'Belen',
-            'middle_name' => 'M',
-            'last_name' => 'Tapado',
-            'email' => 'cict@tapado.com',
-            'email_verified_at' => now(),
-            'college_id' => $cict,
-            'usertype_id' => Role::FACULTY,
-            'added_by_id' => $cictDean,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
 
-        $faculty->save();
 
-        $faculty = new Faculty([
-            'first_name' => 'Gemma',
-            'middle_name' => 'G',
-            'last_name' => 'Acedo',
-            'email' => 'cict@acedo.com',
-            'email_verified_at' => now(),
-            'college_id' => $cict,
-            'usertype_id' => Role::FACULTY,
-            'added_by_id' => $cictDean,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $faculty->save();
-
-        $faculty = new Faculty([
-            'first_name' => 'Joy',
-            'middle_name' => 'V',
-            'last_name' => 'Santelices',
-            'email' => 'cict@santelices.com',
-            'email_verified_at' => now(),
-            'college_id' => $cict,
-            'usertype_id' => Role::FACULTY,
-            'added_by_id' => $cictDean,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $faculty->save();
-
-        $faculty = new Faculty([
+        // Faculty 1 || Start 4
+        $faculty1 = new Faculty([
             'first_name' => 'Janette',
-            'middle_name' => 'V',
-            'last_name' => 'Lucre',
-            'email' => 'cict@lucre.com',
-            'email_verified_at' => now(),
-            'college_id' => $cict,
-            'usertype_id' => Role::FACULTY,
-            'added_by_id' => $cictDean,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $faculty->save();
-
-        $faculty = new Faculty([
-            'first_name' => 'Ma. Antonia',
-            'middle_name' => 'E',
-            'last_name' => 'Rojas',
-            'email' => 'cict@rojas.com',
-            'email_verified_at' => now(),
-            'college_id' => $cict,
-            'usertype_id' => Role::FACULTY,
-            'added_by_id' => $cictDean,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $faculty->save();
-
-        $faculty = new Faculty([
-            'first_name' => 'Chiradel',
-            'middle_name' => 'D',
-            'last_name' => 'Tugay',
-            'email' => 'cict@tugay.com',
-            'email_verified_at' => now(),
-            'college_id' => $cict,
-            'usertype_id' => Role::FACULTY,
-            'added_by_id' => $cictDean,
-            'created_at' => now(),
-            'updated_at' => now(),
-        ]);
-
-        $faculty->save();
-
-        $faculty = new Faculty([
-            'first_name' => 'Aster Vivien',
-            'middle_name' => 'C',
+            'middle_name' => '',
             'last_name' => 'Vargas',
-            'email' => 'cict@aster.com',
+            'email' => 'cict@mic4.com',
             'email_verified_at' => now(),
             'college_id' => $cict,
             'usertype_id' => Role::FACULTY,
@@ -174,14 +87,59 @@ class FacultySeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $faculty1->save();
 
-        $faculty->save();
+        // Faculty 2 | 5
+        $faculty2 = new Faculty([
+            'first_name' => 'Chiradel',
+            'middle_name' => 'Dela Rosa',
+            'last_name' => 'Tugay',
+            'email' => 'cict@mic5.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty2->save();
 
-        $faculty = new Faculty([
-            'first_name' => 'Daryl',
-            'middle_name' => 'O',
+        // Faculty 3 | 6
+        $faculty3 = new Faculty([
+            'first_name' => 'Aster Vivien',
+            'middle_name' => 'C.',
+            'last_name' => 'Vargas',
+            'email' => 'cict@mic6.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty3->save();
+
+        // Faculty 4 | 7
+        $faculty4 = new Faculty([
+            'first_name' => 'John Gregory',
+            'middle_name' => 'M',
+            'last_name' => 'Bola',
+            'email' => 'cict@mic7.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty4->save();
+
+        // Faculty 5 | 8
+        $faculty5 = new Faculty([
+            'first_name' => 'Daryl ',
+            'middle_name' => 'O.',
             'last_name' => 'Pulvinar',
-            'email' => 'cict@daryl.com',
+            'email' => 'cict@mic8.com',
             'email_verified_at' => now(),
             'college_id' => $cict,
             'usertype_id' => Role::FACULTY,
@@ -189,14 +147,14 @@ class FacultySeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $faculty5->save();
 
-        $faculty->save();
-
-        $faculty = new Faculty([
+        // Faculty 6 | 9
+        $faculty6 = new Faculty([
             'first_name' => 'Ramona Michelle',
             'middle_name' => '',
             'last_name' => 'Magtangob',
-            'email' => 'cict@mic.com',
+            'email' => 'cict@mic9.com',
             'email_verified_at' => now(),
             'college_id' => $cict,
             'usertype_id' => Role::FACULTY,
@@ -204,14 +162,29 @@ class FacultySeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $faculty6->save();
 
-        $faculty->save();
+        // Faculty 7 | 10
+        $faculty7 = new Faculty([
+            'first_name' => 'Joy',
+            'middle_name' => 'V',
+            'last_name' => 'Santeices',
+            'email' => 'cict@mic10.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty7->save();
 
-        $faculty = new Faculty([
+        // Faculty 8 | 11
+        $faculty8 = new Faculty([
             'first_name' => 'Mary Rose',
             'middle_name' => '',
             'last_name' => 'Alcantara',
-            'email' => 'cict@alcantara.com',
+            'email' => 'cict@mic11.com',
             'email_verified_at' => now(),
             'college_id' => $cict,
             'usertype_id' => Role::FACULTY,
@@ -219,14 +192,90 @@ class FacultySeeder extends Seeder
             'created_at' => now(),
             'updated_at' => now(),
         ]);
+        $faculty8->save();
 
-        $faculty->save();
+        // Faculty 9 | 12
+        $faculty9 = new Faculty([
+            'first_name' => 'Melkisedek',
+            'middle_name' => 'O.',
+            'last_name' => 'Ubalde',
+            'email' => 'cict@mic12.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty9->save();
+
+        // Faculty 10 | 13
+        $faculty10 = new Faculty([
+            'first_name' => 'Zcel',
+            'middle_name' => 'T.',
+            'last_name' => 'Tablizo',
+            'email' => 'cict@mic13.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty10->save();
+
+        // Faculty 11 | 14
+        $faculty11 = new Faculty([
+            'first_name' => 'Belen',
+            'middle_name' => 'M',
+            'last_name' => 'Tapado',
+            'email' => 'cict@mic14.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty11->save();
+
+        // Faculty 12 | 15
+        $faculty12 = new Faculty([
+            'first_name' => 'Ryan Neil',
+            'middle_name' => 'A.',
+            'last_name' => 'Lareza',
+            'email' => 'cict@mic15.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty12->save();
+
+        // Faculty 13 | 16
+        $faculty12 = new Faculty([
+            'first_name' => 'Merlijoy',
+            'middle_name' => 'M.',
+            'last_name' => 'Jamero',
+            'email' => 'cict@mic16.com',
+            'email_verified_at' => now(),
+            'college_id' => $cict,
+            'usertype_id' => Role::FACULTY,
+            'added_by_id' => $cictDean,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
+        $faculty12->save();
+
+
 
 
 
         /* Randomize Faculty */
 
-    /*     for ($i = 0; $i < 100; $i++) {
+        /*     for ($i = 0; $i < 100; $i++) {
 
             $faculty = new Faculty([
                 'first_name' => fake()->firstName(),

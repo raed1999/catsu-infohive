@@ -162,13 +162,13 @@
                                             <span>
                                                 <i class="ri-book-fill"></i>
                                                 {{ $research->adviser->first_name }}
-                                                {{ $research->adviser->middle_name[0] . '. ' }}
+                                                {{-- {{ $research->adviser->middle_name[0] . '. ' ?? ''}} --}}
                                                 {{ $research->adviser->last_name }}
                                             </span>
                                         </p>
                                     </div>
                                 @endif
-                                <div class="row">
+                               {{--  <div class="row">
                                     <h6 class="card-subtitle text-muted">Faculty In Charge</h6>
                                     <p class="mb-0">
                                         @if ($research->facultyInCharge)
@@ -180,7 +180,7 @@
                                             </span>
                                         @endif
                                     </p>
-                                </div>
+                                </div> --}}
                             </div>
                         </div>
 
